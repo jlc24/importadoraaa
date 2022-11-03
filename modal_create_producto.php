@@ -1,6 +1,3 @@
-<script>
-    
-</script>
 <!-- MODAL PARA REGISTRAR PRODUCTO -->
 <div id="modal_crear_producto" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;" aria-labelledby="exampleModalToggleLabel">
     <div class="modal-dialog modal-lg">
@@ -103,7 +100,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Imagen:</label>
                         <div class="col-md-6">
-                            <input type="file" id="prod_imagen" name="prod_imagen" class="prod_imagen">
+                            <input type="file" id="prod_imagen" name="prod_imagen" class="prod_imagen" accept="image/png">
                             <p class="help-block">Peso máximo de la foto 2 MB</p>
                             <img src="/assets/images/default/anonymous.png" class="img-thumbnail ver" width="100px">
                         </div>
@@ -111,8 +108,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="close_Producto" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
-                <button type="button" id="create_producto" name="guardar" class="btn btn-purple waves-effect" data-dismiss="modal">Guardar</button>
+                <button type="button" id="close_producto" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="create_producto" class="btn btn-purple waves-effect" data-dismiss="modal">Guardar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

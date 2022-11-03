@@ -105,6 +105,7 @@ $row = $resultado->fetch_assoc();
                 });
                 $('#create_producto').click(function(){
                     var datos = $('#formulario_crear_producto').serialize();
+                    
                     $.ajax({
                         type:"POST",
                         url:"assets/inc/create_producto.php",
