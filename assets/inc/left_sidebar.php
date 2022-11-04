@@ -38,6 +38,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="pos.php">
+                                    <i class="fe-shopping-cart"></i>
+                                    <span> Punto de Ventas </span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="caja.php">
                                     <i class="dripicons-inbox"></i>
                                     <span> Caja </span>

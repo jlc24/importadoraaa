@@ -42,13 +42,7 @@ $row = $resultado->fetch_assoc();
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
-                                <div class="page-title-right">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Farmacia</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Panel de Control</a></li>
-                                        <li class="breadcrumb-item active">Indicadores</li>
-                                    </ol>
-                                </div>
+                                
                                 <h4 class="page-title">Panel de Control</h4>
                             </div>
                         </div>
@@ -60,111 +54,7 @@ $row = $resultado->fetch_assoc();
                         =========================================-->
                     
                     <!-- end row -->
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-12">
-                            <div class="card-box">
-                                <ul class="nav nav-tabs nav-justified">
-                                    <li class="nav-item">
-                                        <a href="#factura" data-toggle="tab" aria-expanded="true" class="nav-link active">
-                                            <span class="d-block d-sm-none">Ventas</i></span>
-                                            <span class="d-none d-sm-block">HISTORIAL DE VENTAS</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#factura1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                                            <span class="d-block d-sm-none">Por Venderdor</span>
-                                            <span class="d-none d-sm-block">POR ADMINISTRADOR</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane show active" id="factura">
-                                        <!--<p class="sub-header">Ordenado descendentemente por número de venta.</p>-->
-                                        <div class="table-responsive">
-                                            <table id="facturaResumen" class="table mb-0 table-sm table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                                <thead>
-                                                    <th data-priority="1">Nº</th>
-                                                    <th data-priority="5">Fecha</th>
-                                                    <th data-priority="2">Cliente</th>
-                                                    <th class="none">Vendedor</th>
-                                                    <th data-priority="4">Total</th>
-                                                    <th data-priority="3">Acción</th>
-                                                </thead>
-                                                <!-- aqui va el contenido del serverside -->
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="factura1">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- end col -->
-
-                        <div class="col-xl-6 col-lg-12">
-                            <div class="card-box">
-                                <!--<h4 class="header-title">Caducidad</h4>
-                                    <p class="sub-header">
-                                        Ordenado ascendentemente por fecha de vencimiento.
-                                    </p>-->
-                                <ul class="nav nav-tabs nav-justified">
-                                    <li class="nav-item">
-                                        <a href="#caducidad" data-toggle="tab" aria-expanded="true" class="nav-link active">
-                                            <span class="d-block d-sm-none">Por Caducar</i></span>
-                                            <span class="d-none d-sm-block">POR CADUCAR</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#caducado" data-toggle="tab" aria-expanded="false" class="nav-link">
-                                            <span class="d-block d-sm-none">Cadudados</i></span>
-                                            <span class="d-none d-sm-block">CADUCADOS</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane show active" id="caducidad">
-                                        <!--<p class="sub-header">Ordenado descendentemente por número de venta.</p>-->
-                                        <div class="table-responsive">
-                                            <table id="vencimientoResumen" class="table mb-0 table-sm table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                                <thead>
-                                                    <th data-priority="1">Nombre Comercial</th>
-                                                    <th data-priority="5">Forma</th>
-                                                    <th data-priority="4">Laboratorio</th>
-                                                    <th data-priority="2">Caducidad</th>
-                                                    <th data-priority="3">Dias</th>
-                                                    <th data-priority="6">Stock</th>
-                                                </thead>
-                                                <!-- aqui va el contenido del serverside -->
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="caducado">
-                                        <!--<p class="sub-header">Ordenado descendentemente por número de venta.</p>-->
-                                        <div class="table-responsive">
-                                            <table id="caducadoResumen" class="table mb-0 table-sm table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                                <thead>
-                                                    <th data-priority="1">Nombre Comercial</th>
-                                                    <th data-priority="5">Forma</th>
-                                                    <th data-priority="4">Laboratorio</th>
-                                                    <th data-priority="2">Caducidad</th>
-                                                    <th data-priority="3">Dias</th>
-                                                    <th data-priority="3">Stock</th>
-                                                </thead>
-                                                <!-- aqui va el contenido del serverside -->
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end col -->
-
-                    </div>
+                    <
                     <!-- end row -->
 
                     <!--====  End of Contenido Principal  ====-->
