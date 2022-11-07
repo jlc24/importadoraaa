@@ -46,11 +46,11 @@
 
 <table id="producto" class="table mb-0 table-sm table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
     <thead style="background-color: #DBEDC8;">
-        <th data-priority="1">Nombre</th>
+        <th data-priority="1" width="150">Nombre</th>
         <th data-priority="3">Imagen</th>
         <th data-priority="6" width="200">Descripcion</th>
-        <th data-priority="2">Stock</th>
-        <th data-priority="4">Estado</th>
+        <th data-priority="2" width="50">Stock</th>
+        <th data-priority="4" width="50">Estado</th>
         <th data-priority="5">Op.</th>
     </thead>
     <tbody>
@@ -87,10 +87,13 @@
                     ?></td>
                 <td align="center">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <a class="btn btn-outline-primary" type="button" href="#" data-toggle="modal" data-target="#modal_actualizar_cliente" title="Editar">
+                        <a class="btn btn-outline-success" type="button" href="#" data-toggle="modal" data-target="#modal_abastecer producto" title="Abastecer Producto">
+                            <i class="fas fa-plus-circle" ></i>
+                        </a>
+                        <a class="btn btn-outline-primary" type="button" href="#" data-toggle="modal" data-target="#modal_actualizar_producto" title="Editar Producto">
                             <i class="far fa-edit"></i>
                         </a>
-                        <a class="btn btn-outline-danger" type="button" href="#" title="Eliminar">
+                        <a class="btn btn-outline-danger" type="button" href="#" data-toggle="modal" data-target="#modal_eliminar_producto" title="Eliminar Producto">
                             <i class="far fa-trash-alt"></i>
                         </a>
                     </div>
