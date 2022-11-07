@@ -67,8 +67,10 @@ $row = $resultado->fetch_assoc();
                                 <!-- fin tabla medicamento -->
 
                                 <?php include "modal_create_producto.php"; ?>
+                                <?php include "modal_update_producto.php"; ?>
+                                <?php include "modal_abastecer_producto.php" ?>
                                 
-                                <!-- MODAL PARA MOSTRAR IMAGEN DEL PRODUCTO -->
+                                <!-- MODAL PARA MOSTRAR IMAGEN DEL PRODUCTO 
                                 <div id="imagen" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                                     <div class="modal-dialog modal-md">
                                         <div class="modal-content">
@@ -79,45 +81,11 @@ $row = $resultado->fetch_assoc();
                                                 <img id="previsualizar" src="/assets/images/default/404.png" class="img-thumbnail" width="200px">
                                                 
                                             </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
+                                        </div>
+                                    </div>
+                                </div>-->
 
-                                <!-- MODAL PARA REGISTRAR MEDICAMENTO -->
-                                <div id="modal_editar_producto" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h4 class="modal-title" id="myModalLabel">Actualizar Datos del Producto</h4>
-                                            </div>
-                                            <div class="modal-body" id="editar_medicamento">
-                                                <!-- Dentro de este DIV, se muestra los datos del medicamento a editar -->
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" id="cerrar_producto" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
-                                                <button type="button" id="update_producto" class="btn btn-purple waves-effect" data-dismiss="modal">Actualizar</button>
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
-                                <div id="modal_abastecer_prodcucto" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel">Abastecer Producto</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            </div>
-                                            <div class="modal-body" id="proveer_producto">
-                                                <!-- Dentro de este DIV, se muestra los datos del producto a abastecer -->
-                                            </div>
-                                            <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Cancelar</button>
-                                                    <button type="button" class="btn btn-purple waves-effect" data-dismiss="modal" id="abastecer_producto">Guardar Registro</button>
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
+                               
 
                             </div>
                             <!-- end col-12 -->
@@ -150,6 +118,103 @@ $row = $resultado->fetch_assoc();
         <!-- end Libs -->
         
         <script>
+            function EditarProducto(datos){
+                vector=datos.split('||');
+                $('#prod_id').val(vector[0]);
+                $('#prod_nombre_comercial_update').val(vector[1]);
+                $('#prod_imagen_update').val(vector[2]);
+                $('#prod_fabricante_update').val(vector[3]);
+                $('#prod_ubicacion_update').val(vector[4]); 
+                $('#prod_codigo_update').val(vector[5]);
+                $('#prod_descripcion_update').val(vector[6]);
+                $('#comp_vendedor_update').val(vector[7]);
+                $('#prod_stock_update').val(vector[8]);
+                $('#prod_stock_minimo_update').val(vector[9]);
+                $('#prod_precio_compra_update').val(vector[10]);
+                $('#prod_precio_venta_update').val(vector[11]);
+                $('#prod_precio_unitario_update').val(vector[12]);
+                $('#prod_barcode_update').val(vector[13]);
+                $('#prod_estado_update').val(vector[14]);
+                $('#comp_tipo_compra_update').val(vector[15]);
+                $('#comp_detalle_update').val(vector[16]);
+            }
+            function AbastecerProducto(datos) {
+                vector = datos.split('||');
+                $('#prod_id').val(vector[0]);
+                $('#prod_nombre_comercial_abastecer').val(vector[1]);//
+                $('#prod_stock_abastecer').val(vector[8]); //
+                $('#precio_venta_anterior').val(vector[11]);//
+                $('#precio_unitario_anterior').val(vector[12]);//
+            }
+            function DesactivarProducto(datos) {
+                vector = datos.split('||');
+                Swal.fire({
+                    title: 'Se deshabilitara al Producto "' + vector[1] + '"',
+                    text: "No podrás vender este producto!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, deshabilitar!'
+                }).then((result) => {
+                    if(result.value) {
+                        cadena = "id=" + vector[0];
+                        //alert(cadena);
+                        $.ajax({
+                            url: "assets/inc/desactivar_producto.php",
+                            data: cadena,
+                            type: "POST",
+                            success: function(response) {
+                                if(response == 1) {
+                                    $('#tabla_producto').load('tabla_producto.php');
+                                    Swal.fire({
+                                        type: 'success',
+                                        title: 'Tu registro de producto a sido Deshabilitado.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    })
+                                }
+                            }
+                        });
+                    }
+                })
+            }
+            function ActivarProducto(datos) {
+                vector = datos.split('||');
+                Swal.fire({
+                    title: 'Se Habilitara el Producto "' + vector[1] + '"',
+                    text: "Podras vender este producto!",
+                    type: 'success',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, habilitar!'
+                }).then((result) => {
+                    if(result.value) {
+                        cadena = "id=" + vector[0];
+                        //alert(cadena);
+                        $.ajax({
+                            url: "assets/inc/activar_producto.php",
+                            data: cadena,
+                            type: "POST",
+                            success: function(response) {
+                                if(response == 1) {
+                                    $('#tabla_producto').load('tabla_producto.php');
+                                    Swal.fire({
+                                        type: 'success',
+                                        title: 'Tu registro de producto a sido Habilitado.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    })
+                                }
+                            }
+                        });
+                    }
+                })
+            }
+
             $(document).ready(function() {
                 $('#tabla_producto').load('tabla_producto.php');
                 $('#modal_crear_producto').on('shown.bs.modal',function(){
@@ -213,6 +278,13 @@ $row = $resultado->fetch_assoc();
                             $(".ver").attr("src", rutaImagen);
                         })
                     }
+                });
+                //EVENTO DE PRECIO UNITARIO
+                $("#prod_precio_compra").keyup(function() {
+                    var cantidad = document.getElementById("prod_stock").value;
+                    var precioCom = document.getElementById("prod_precio_compra").value;
+                    var precioUni = parseFloat(precioCom / cantidad);
+                    document.getElementById("prod_precio_unitario").value = precioUni;
                 });
             });
         </script>

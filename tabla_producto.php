@@ -47,19 +47,41 @@
 <table id="producto" class="table mb-0 table-sm table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
     <thead style="background-color: #DBEDC8;">
         <th data-priority="1" width="150">Nombre</th>
-        <th data-priority="3">Imagen</th>
-        <th data-priority="6" width="200">Descripcion</th>
+        <th data-priority="3" width="50">Imagen</th>
+        <th data-priority="6" width="100">Precio de Venta</th>
         <th data-priority="2" width="50">Stock</th>
         <th data-priority="4" width="50">Estado</th>
-        <th data-priority="5">Op.</th>
+        <th data-priority="5" width="100">Op.</th>
     </thead>
     <tbody>
         <?php
-        $sql = "SELECT * FROM producto ORDER BY prod_id";
+        $sql = "SELECT * FROM producto, compra WHERE producto.prod_id = compra.prod_id ORDER BY producto.prod_id";
+        
         $resultado = mysqli_query($conexion, $sql);
         while ($registro = mysqli_fetch_assoc($resultado))
         {
-            //$datos = $registro["prod_id"] . "||" . $registro["cli_ci_nit"] . "||" . $registro["cli_nombre"] . "||" . $registro["cli_genero"] . "||" . $registro["cli_direccion"] . "||" . $registro["cli_celular"] . "||" . $registro["cli_fecha_registro"];
+            if ($registro["prod_estado"] == '1') {
+                $estado = "ACTIVO";
+            }else{
+                $estado = "INACTIVO";
+            }
+            $datos =    $registro["prod_id"] . "||" . 
+                        $registro["prod_nombre_comercial"] . "||" . 
+                        $registro["prod_imagen"] . "||" . 
+                        $registro["prod_fabricante"] . "||" . 
+                        $registro["prod_ubicacion"] . "||" . 
+                        $registro["prod_codigo"] . "||" . 
+                        $registro["prod_descripcion"] . "||" . 
+                        $registro["comp_vendedor"] . "||" . 
+                        $registro["prod_stock"] . "||" . 
+                        $registro["prod_stock_minimo"] . "||" . 
+                        $registro["prod_precio_compra"] . "||" . 
+                        $registro["prod_precio_venta"] . "||" . 
+                        $registro["prod_precio_unitario"] . "||" . 
+                        $registro["prod_barcode"] . "||" . 
+                        $estado . "||" . 
+                        $registro["comp_tipo"] . "||" . 
+                        $registro["comp_detalle"];
         ?>
             <tr>
                 <td><?php echo $registro["prod_nombre_comercial"]; ?></td>
@@ -72,30 +94,40 @@
                         }
                     ?>
                 </td>
-                <!-- Fecha de Vencimiento -->
-                <td><?php echo $registro["prod_descripcion"]; ?></td>
-                <td><?php echo $registro["prod_stock"]; ?></td>
+                <td><?php echo $registro["prod_precio_venta"]; ?></td>
                 <td>
                     <?php 
+                        /*if ($registro["prod_stock"] <= $registro["prod_stock_minimo"]) {
+                            echo '<p style="text-color: red;">'.$registro["prod_stock"].'</p';
+                        }else{
+                            echo '<p style="text-color: red;">'.$registro["prod_stock"].'</p';*/
+                            echo $registro["prod_stock"];
+                        
+                         
+                    ?>
+                </td>
+                <td align="center">
+                    <?php 
                         $est = $registro["prod_estado"];
-                        if ($est == "1") {
-                            echo "ACTIVO";
-                        }
-                        else{
-                            echo "INACTIVO";
-                        }
+                        if ($est == "1" && $registro["prod_stock"] >'0') { ?>
+                            <div class="btn-group" role="group">
+                                <a href="javascript:void(0);" class="btn btn-success btn-sm" title="Deshabilitar Producto" onclick="DesactivarProducto('<?php echo $registro['prod_id']."||".$registro['prod_nombre_comercial']; ?>')">ACTIVO</a>
+                            </div>
+                        <?php }
+                        else{?>
+                            <div class="btn-group" role="group">
+                                <a href="javascript:void(0);" class="btn btn-danger btn-sm" title="Habilitar Producto" onclick="ActivarProducto('<?php echo $registro['prod_id']."||".$registro['prod_nombre_comercial']; ?>')">INACTIVO</a>
+                            </div>
+                        <?php }
                     ?></td>
                 <td align="center">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <a class="btn btn-outline-success" type="button" href="#" data-toggle="modal" data-target="#modal_abastecer producto" title="Abastecer Producto">
+                        <a class="btn btn-outline-success" type="button" href="#" data-toggle="modal" data-target="#modal_abastecer_producto" onclick="AbastecerProducto('<?php echo $datos; ?>')" title="Abastecer Producto">
                             <i class="fas fa-plus-circle" ></i>
                         </a>
-                        <a class="btn btn-outline-primary" type="button" href="#" data-toggle="modal" data-target="#modal_actualizar_producto" title="Editar Producto">
+                        <a class="btn btn-outline-primary" type="button" href="#" data-toggle="modal" data-target="#modal_actualizar_producto" onclick="EditarProducto('<?php echo $datos; ?>')" title="Editar Producto">
                             <i class="far fa-edit"></i>
-                        </a>
-                        <a class="btn btn-outline-danger" type="button" href="#" data-toggle="modal" data-target="#modal_eliminar_producto" title="Eliminar Producto">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
+                        </a>  
                     </div>
                 </td>
             </tr>

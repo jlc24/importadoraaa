@@ -2,7 +2,7 @@
 include ('assets/inc/conexion.php');
 if (isset($_POST['search']))
 {
-    $consulta = mysqli_query($conexion, "SELECT * FROM producto WHERE prod_nombre_comercial 
+    $consulta = mysqli_query($conexion, "SELECT * FROM producto WHERE prod_estado = '1' AND prod_nombre_comercial 
         LIKE '%" . mysqli_real_escape_string($conexion, ($_POST['search'])) . "%' 
         OR prod_fabricante like '%" . mysqli_real_escape_string($conexion, ($_POST['search'])) . "%' 
         OR prod_ubicacion like '%" . mysqli_real_escape_string($conexion, ($_POST['search'])) . "%' 
