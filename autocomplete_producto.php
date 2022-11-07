@@ -12,16 +12,21 @@ if (isset($_POST['search']))
     while ($row = mysqli_fetch_array($consulta))
     {
         /* El array value, muestra solo informacion*/
-        $row_array['value'] = $row['prod_codigo'] ." | ".$row['prod_nombre_comercial'] . " Bs. " . $row['prod_precio_venta'];
+        /*
+        nombre precio venta stock
+        */
+        $row_array['value'] = $row['prod_barcode'] ." | ".$row['prod_nombre_comercial'] . " Bs. " . $row['prod_precio_venta'];
         $row_array['id'] = $row['prod_id'];
         $row_array['nombre'] = $row['prod_nombre_comercial'];
         $row_array['fabricante'] = $row['prod_fabricante'];
+        $row_array['descripcion'] = $row['prod_descripcion'];
+        $row_array['codigo'] = $row['prod_codigo'];
         $row_array['precio_compra'] = $row['prod_precio_compra'];
         $row_array['precio_venta'] = $row['prod_precio_venta'];
         $row_array['stock'] = $row['prod_stock'];
-        $row_array['codigo'] = $row['prod_barcode'];
+        $row_array['barcodigo'] = $row['prod_barcode'];
         $row_array['estado'] = $row['prod_estado'];
-        $row_array['registro'] = strftime("%d %b %Y", (new DateTime($row['prod_fecha_registro']))->getTimestamp());
+        $row_array['registro'] = $row['prod_fecha_registro'];
         array_push($return_arr, $row_array);
     }
     mysqli_close($conexion);

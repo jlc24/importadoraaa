@@ -54,7 +54,7 @@ $row = $resultado->fetch_assoc();
                         =========================================-->
                     
                     <!-- end row -->
-                    <
+                    
                     <!-- end row -->
 
                     <!--====  End of Contenido Principal  ====-->

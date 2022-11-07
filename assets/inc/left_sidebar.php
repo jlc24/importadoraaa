@@ -32,12 +32,6 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="tpv.php">
-                                    <i class="fe-shopping-cart"></i>
-                                    <span> Ventas </span>
-                                </a>
-                            </li>
-                            <li>
                                 <a href="pos.php">
                                     <i class="fe-shopping-cart"></i>
                                     <span> Punto de Ventas </span>

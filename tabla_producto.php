@@ -48,11 +48,10 @@
     <thead style="background-color: #DBEDC8;">
         <th data-priority="1">Nombre</th>
         <th data-priority="3">Imagen</th>
-        <th data-priority="6">Caducidad</th>
-        <th data-priority="4">Stock</th>
-        <th data-priority="4">P. Venta</th>
+        <th data-priority="6" width="200">Descripcion</th>
+        <th data-priority="2">Stock</th>
         <th data-priority="4">Estado</th>
-        <th data-priority="2">Op.</th>
+        <th data-priority="5">Op.</th>
     </thead>
     <tbody>
         <?php
@@ -64,46 +63,18 @@
         ?>
             <tr>
                 <td><?php echo $registro["prod_nombre_comercial"]; ?></td>
-                <td> 
+                <td align="center"> 
                     <?php
-                        if ($registro["prod_imagen"] != "") {
-                            echo '<img src="'.$registro["prod_imagen"].'" class="img-thumbnail" width="50px"> ';
+                        if ($registro["prod_imagen"] != "/assets/images/default/404.png") {
+                            echo '<a href="#" data-toggle="modal" data-target="#imagen" title="Ampliar Imagen"><img onclick="verImagen(this)" src="'.$registro["prod_imagen"].'" class="img-thumbnail rounded mx-auto d-block image" id="image" width="50px"></a> ';
                         }else{
-                            echo '<img src="/assets/images/default/anonymous.png" class="img-thumbnail" width="50px"> ';
+                            echo '<img src="/assets/images/default/404.png" class="img-thumbnail rounded mx-auto d-block" width="50px">';
                         }
                     ?>
                 </td>
                 <!-- Fecha de Vencimiento -->
-                <td>
-                    <?php
-                        //echo date_format(date_create($registro['prod_fecha_vencimiento']), 'd/m/Y');
-                        $fecha_actual= date("Y-m-d");
-                        //echo $fecha_actual;
-                        $fecha_vencimiento = date_create($registro['prod_vencimiento']);
-                        $fecha_final = date_format($fecha_vencimiento,'Y-m-d');
-                        //echo "<br>".$fecha_final;
-                        $diferencia = (strtotime($fecha_final) - strtotime($fecha_actual)) / 60 / 60 / 24;
-                        $numero = (int)$diferencia;
-                        //echo "<br>".$numero."<br>";
-                        if($diferencia>181){//si al producto tiene mas de 180 dias de vigencias no se colorea
-                            $fecha = date_create("2020-12-13"); echo date_format($fecha, 'd-m-Y');
-                        }
-                        elseif($diferencia>90){//si al producto tiene mas de 90 dias de vigencias no se colorea verde
-                            $fecha = date_format($fecha_vencimiento,'d-m-Y');
-                            echo "<font color=\"green\"><b>$fecha</b></font>";
-                        }
-                        elseif($diferencia>-1){//si al producto tiene mas de 0 dias de vigencias no se colorea amarillo
-                            $fecha = date_format($fecha_vencimiento,'d-m-Y');
-                            echo "<font color=\"orange\"><b>$fecha</b></font>";
-                        }
-                        else{//Aqui la diferencia ya es negativa, y el producto ya vencio entonces se colorea rojo
-                            $fecha = date_format($fecha_vencimiento,'d-m-Y');
-                            echo "<font color=\"red\"><b>$fecha</b></font>";
-                        }
-                    ?>
-                </td>
+                <td><?php echo $registro["prod_descripcion"]; ?></td>
                 <td><?php echo $registro["prod_stock"]; ?></td>
-                <td><?php echo $registro["prod_precio_venta"]; ?></td>
                 <td>
                     <?php 
                         $est = $registro["prod_estado"];
@@ -114,7 +85,7 @@
                             echo "INACTIVO";
                         }
                     ?></td>
-                <td>
+                <td align="center">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                         <a class="btn btn-outline-primary" type="button" href="#" data-toggle="modal" data-target="#modal_actualizar_cliente" title="Editar">
                             <i class="far fa-edit"></i>
@@ -130,4 +101,5 @@
         ?>
     </tbody>
 </table>
+
 

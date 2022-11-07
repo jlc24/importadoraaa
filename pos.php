@@ -427,12 +427,13 @@
                     select: function(event, ui) {
                         event.preventDefault();
                         $('#prod_id').val(ui.item.id);
+                        $('#prod_descripcion').val(ui.item.descripcion);
                         $('#prod_nombre').val(ui.item.nombre);
                         $('#prod_stock').val(ui.item.stock);
                         $('#prod_precio_compra').val(ui.item.precio_compra);
                         $('#prod_precio_venta').val(ui.item.precio_venta);
                         $('#prod_codigo').val(ui.item.codigo);
-                        $('#prod_caducidad').val(ui.item.registro);
+                        $('#prod_registro').val(ui.item.registro);
                         //ABRE VENTANA MODAL...(CON DATOS DEL PRODUCTO SELECCIONADO)
                         $('#modal_crear_detalle').modal("show");
                         return false;
@@ -442,7 +443,7 @@
                     .data( "item.autocomplete", item )
                     //.append( "<table class='table table-bordered table-sm  mb-0'><tr><td style='width: 10%;'>" + item.codigo + "</td><td>" + item.nombre + "</td><td>" + item.precio_venta + "</td></tr></table>" )
                     //.append( "<a>" + item.codigo + " " + item.nombre + " " + item.precio_venta + " " + item.propaganda + "<br>" + item.ingrediente + "</a>" )
-                    .append("<div class='acItem'><span class='name'>"+item.registro+"</span>"+"&nbsp;&nbsp;&nbsp;&nbsp;"+"<span class='name'>"+item.fabricante+"</span>"+"&nbsp;&nbsp;&nbsp;&nbsp;"+"<span class='name'>"+item.codigo+"</span><span class='name'>"+ "&nbsp;&nbsp;&nbsp;&nbsp;" + item.nombre+"</span><br><span class='desc'>"+item.forma+"</span>"+ ",&nbsp;&nbsp;" +"<span class='desc'>"+item.propaganda+"</span><br><span class='desc'>"+item.ingrediente+"</span></div>")
+                    .append("<div class='acItem'><span class='name'>"+item.nombre+"</span>"+"&nbsp;&nbsp;&nbsp;&nbsp;"+"<span class='name'>"+item.precio_venta+"</span><span class='name'>"+ "&nbsp;&nbsp;&nbsp;&nbsp;" + item.stock+"</span></div>")
                     .appendTo( ul );
                 };
 
@@ -466,7 +467,12 @@
                         var input = document.getElementById("prod_cantidad");
                         input.setAttribute("max", stock); // set a new value;
                         //COLOCAMOS LA UTILIDAD EN EL INPUT 
-                        $('#prod_utilidad').val((parseFloat($('#prod_cantidad').val()) * ((parseFloat((parseFloat($('#prod_precio_venta').val()) - parseFloat($('#prod_precio_compra').val()))) - parseFloat((parseFloat($('#prod_precio_venta').val()) - parseFloat($('#prod_precio_compra').val()))) * (parseFloat($('#prod_descuento').val()) / 100)))).toFixed(2));
+                        cant = parseFloat($('#prod_cantidad').val());
+                        pv = parseFloat($('#prod_precio_venta').val());
+                        pc = parseFloat($('#prod_precio_compra').val());
+                        desc = parseFloat($('#prod_descuento').val());
+                        utilx = (pv - pc)*(cant-desc/100);
+                        $('#prod_utilidad').val(utilx.toFixed(2));
                         //COLOCAMOS EL FOCO EN EL INPUT CANTIDAD A COMPRAR
                         $('#prod_cantidad').focus();
                     } else { //SI EL STOCK ES CERO...
@@ -594,7 +600,7 @@
                     }
                     if( cantidad_a_comprar > 0 && cantidad_a_comprar <= stock){
                         var datos = $('#formulario_crear_detalle').serialize();
-                        //alert(datos);
+                        //alert(datos); return false;
                         $.ajax({
                         type:"POST",
                         url:"assets/inc/create_detalle.php",
@@ -638,7 +644,7 @@
             =       6. AUTOCOMPLETA DATOS DE LA FACTURA Y REGISTRA LA FACTURA          =
             =========================================================================-*/
                 $("#fac_ci_nit").autocomplete({
-                    source: "autocomplete_factura_ci_nit.php",
+                    source: "autocomplete_cliente_ci.php",
                     minLength: 2,
                     select: function(event, ui) {
                         event.preventDefault();
@@ -648,7 +654,7 @@
                     }
                 });
                 $("#fac_nombre").autocomplete({
-                    source: "autocomplete_factura_nombre.php",
+                    source: "autocomplete_cliente_nombre.php",
                     minLength: 2,
                     select: function(event, ui) {
                         event.preventDefault();

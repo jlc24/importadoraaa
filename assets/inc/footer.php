@@ -2,7 +2,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <?php echo date("Y"); ?> &copy; Farmacia - Illampu
+                                <?php echo date("Y"); ?> &copy; Importadora
                             </div>
                         </div>
                     </div>

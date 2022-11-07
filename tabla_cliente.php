@@ -45,13 +45,12 @@
 <?php include('assets/inc/conexion.php'); ?>
 
 <table id="cliente" class="table mb-0 table-sm table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-    <thead style="background-color: #DBEDC8;">
+    <thead style="background-color: #DBEDC8;" align="center">
         <th data-priority="1">CI / NIT</th>
         <th data-priority="3">Nombre</th>
-        <th data-priority="5">Dirección</th>
-        <th data-priority="4">Celular</th>
-        <th data-priority="6">Fecha de Registro</th>
-        <th data-priority="2">Op.</th>
+        <th data-priority="4">Dirección</th>
+        <th data-priority="2">Celular</th>
+        <th data-priority="6">Op.</th>
     </thead>
     <tbody>
         <?php
@@ -65,9 +64,8 @@
                 <td><?php echo $registro["cli_ci_nit"]; ?></td>
                 <td><?php echo $registro["cli_nombre"]; ?></td>
                 <td><?php echo $registro["cli_direccion"]; ?></td>
-                <td> <a href="https://wa.me/<?php echo $registro["cli_celular"]; ?>"><i class="fab fa-whatsapp" style="font-size: 2em;"></i></a></td>
-                <td><?php echo date_format(date_create($registro["cli_fecha_registro"]), 'd/m/Y'); ?></td>
-                <td>
+                <td align="center"><a href="https://api.whatsapp.com/send?phone=<?php echo $registro["cli_celular"]; ?>&text=Hola,%20buenos%20dias" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="font-size: 2em;"></i></a></td>
+                <td align="center">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                         
                             <a class="btn btn-outline-primary" type="button" href="#" data-toggle="modal" data-target="#modal_actualizar_cliente" onclick="EditarCliente('<?php echo $datos; ?>')" title="Editar">
