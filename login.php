@@ -39,13 +39,10 @@ if (isset($_POST['ingresar'])) {
 <body class="authentication-bg bg-purple authentication-bg-pattern d-flex align-items-center pb-0 vh-100">
     <div class="account-pages w-100 mt-5 mb-5">
         <div class="container">
-
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-5">
                     <div class="card mb-0">
-
                         <div class="card-body p-4">
-
                             <div class="account-box">
                                 <div class="account-logo-box">
                                     <div class="text-center">
@@ -54,17 +51,14 @@ if (isset($_POST['ingresar'])) {
                                     <h5 class="text-uppercase mb-1 mt-4">INICIA SESIÓN</h5>
                                     <p class="mb-0">Inicie sesión en su cuenta de administrador</p>
                                 </div>
-
                                 <div class="account-content mt-4">
                                     <form class="form-horizontal" action="<?php $_SERVER["PHP_SELF"]; ?>" method="POST">
-
                                         <div class="form-group row">
                                             <div class="col-12">
                                                 <label for="user">Nombre de Usuario o Email</label>
                                                 <input class="form-control" type="text" id="user" name="user" required="" placeholder="Ingrese el nombre de usuario">
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
                                             <div class="col-12">
                                                 <!--<a href="page-recoverpw.html" class="text-muted float-right"><small>¿Olvidaste tu contraseña? </small></a>-->
@@ -72,35 +66,16 @@ if (isset($_POST['ingresar'])) {
                                                 <input class="form-control" type="password" id="pass" name="pass" required="" placeholder="Ingresa tu contraseña">
                                             </div>
                                         </div>
-
                                         <div class="form-group row">
                                             <div class="col-12">
-
-                                                <div class="checkbox checkbox-purple">
-                                                    <input id="remember" type="checkbox" checked="">
-                                                    <label for="remember">
-                                                        Recuérdame
-                                                    </label>
-                                                </div>
-
                                             </div>
                                         </div>
-
                                         <div class="form-group row text-center mt-2">
                                             <div class="col-12">
                                                 <button class="btn btn-md btn-block btn-purple waves-effect waves-light" type="submit" name="ingresar">Inicia sesión</button>
                                             </div>
-                                        </div><!-- end card-body 
-                                        <div class="form-group row text-center mt-2">
-                                            <div class="col-6">
-                                                <button class="btn btn-md btn-block btn-dark waves-effect waves-light" type="button" id="administrador" name="administrador" value="">Administrador</button>
-                                            </div>
-                                            <div class="col-6">
-                                                <button class="btn btn-md btn-block btn-dark waves-effect waves-light" type="button" id="vendedor" name="vendedor" value="">Vendedor</button>
-                                            </div>
-                                        </div>-->
+                                        </div>
                                     </form>
-
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="text-center">
@@ -116,7 +91,6 @@ if (isset($_POST['ingresar'])) {
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row mt-4 pt-2">
                                         <div class="col-sm-12 text-center">
                                             <p class="text-muted mb-0">¿No tienes una cuenta? <a href="register.php" class="text-dark ml-1"><b>Regístrate</b></a></p>
@@ -126,22 +100,12 @@ if (isset($_POST['ingresar'])) {
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- end card-body -->
                 </div>
-                <!-- end card -->
             </div>
-            <!-- end row -->
         </div>
-        <!-- end container -->
     </div>
-    <!-- end page -->
-
-    <!-- Vendor js -->
     <script src="assets/js/vendor.min.js"></script>
-
-    <!-- App js -->
     <script src="assets/js/app.min.js"></script>
     <script>
         $(document).ready(function(){

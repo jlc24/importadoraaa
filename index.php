@@ -18,69 +18,124 @@ $row = $resultado->fetch_assoc();
 </head>
 
 <body>
-
-    <!-- Begin page -->
     <div id="wrapper">
-
-        <!-- Topbar Start -->
         <?php include 'assets/inc/topbar.php'; ?>
-        <!-- end Topbar -->
-
-        <!-- ========== Left Sidebar Start ========== -->
         <?php include 'assets/inc/left_sidebar.php'; ?>
-        <!-- Left Sidebar End -->
-
-        <!-- ============================================================== -->
-        <!-- Start Page Content here -->
-        <!-- ============================================================== -->
-
         <div class="content-page">
             <div class="content">
-                <!-- Start Content-->
                 <div class="container-fluid">
-                    <!-- start page title -->
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
-                                
                                 <h4 class="page-title">Panel de Control</h4>
                             </div>
                         </div>
                     </div>
-                    <!-- end page title -->
-
-                    <!--========================================
-                        =            Contenido Principal           =
-                        =========================================-->
-                    
-                    <!-- end row -->
-                    
-                    <!-- end row -->
-
-                    <!--====  End of Contenido Principal  ====-->
-
-                </div> <!-- end container-fluid -->
-
-            </div> <!-- end content -->
-
-            <!-- Footer Start -->
+                    <div class="row">
+                        <div id="modal_detalle_factura" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">DETALLE DE PRODUCTOS DE LA NOTA DE VENTA  Nº
+                                            <span id="numero_factura">
+                                            </span>
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row" id="tabla_factura_detalle">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="modal_detalle_boleta" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">IMPRESIÓN DE LA NOTA DE VENTA  Nº
+                                            <span id="numero_boleta">
+                                            </span>
+                                        </h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row" id="tabla_boleta_detalle">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card-box widget-box-two widget-two-custom">
+                                <div class="media">
+                                    <div class="avatar-lg bg-icon rounded-circle align-self-center">
+                                        <img class="avatar-md" src="assets/images/icons/cash-register.svg" title="cash-register.svg">
+                                    </div>
+                                    <div class="wigdet-two-content media-body">
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ingresos Bs.</p>
+                                        <h3 class="font-weight-medium my-2">
+                                            <span data-plugin="counterup">
+                                                <?php //include('assets/inc/conexion.php');
+                                                $filas = mysqli_fetch_row(mysqli_query($conexion, "SELECT SUM(fac_total) FROM factura"));
+                                                echo number_format($filas[0]); ?>
+                                            </span>
+                                        </h3>
+                                        <p class="m-0">Ene - Dic <?php echo date("Y"); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card-box widget-box-two widget-two-custom ">
+                                <div class="media">
+                                    <div class="avatar-lg bg-icon rounded-circle align-self-center">
+                                        <img class="avatar-md" src="assets/images/icons/client.svg" title="client.svg">
+                                    </div>
+                                    <div class="wigdet-two-content media-body">
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Clientes</p>
+                                        <h3 class="font-weight-medium my-2">
+                                            <span data-plugin="counterup">
+                                                <?php $sql = "SELECT COUNT(*) FROM cliente";
+                                                $resultado = mysqli_query($conexion, $sql);
+                                                $filas = mysqli_fetch_row($resultado);
+                                                $total = (int)$filas[0];
+                                                echo $total; ?>
+                                            </span>
+                                        </h3>
+                                        <p class="m-0">Ene - Dic <?php echo date("Y"); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card-box widget-box-two widget-two-custom ">
+                                <div class="media">
+                                    <div class="avatar-lg bg-icon rounded-circle align-self-center">
+                                        <img class="avatar-md" src="assets/images/icons/cart.svg" title="cart.svg">
+                                    </div>
+                                    <div class="wigdet-two-content media-body">
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ventas</p>
+                                        <h3 class="font-weight-medium my-2">
+                                            <span data-plugin="counterup">
+                                                <?php $sql = "SELECT COUNT(*) FROM factura";
+                                                $resultado = mysqli_query($conexion, $sql);
+                                                $filas = mysqli_fetch_row($resultado);
+                                                echo number_format($filas[0]); ?>
+                                            </span>
+                                        </h3>
+                                        <p class="m-0">Ene - Dic <?php echo date("Y"); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <?php include 'assets/inc/footer.php'; ?>
-
-            <!-- end Footer -->
-
         </div>
-
-        <!-- ============================================================== -->
-        <!-- End Page content -->
-        <!-- ============================================================== -->
-
     </div>
-    <!-- END wrapper -->
-
-    <!-- Libs Start -->
     <?php include 'assets/inc/librerias.php'; ?>
-    <!-- end Libs -->
-    <!-- INICIALIZAMOS EL PLUGIN Datatables EN LA TABLA CON id=factura-->
     <script type="text/javascript">
         $(document).ready(function() {
             $('#vencimientoResumen').dataTable({
