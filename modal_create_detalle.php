@@ -30,12 +30,12 @@
                             <label class="col-form-label">Stock</label>
                             <input type="text" class="form-control" readonly="" id="prod_stock" name="prod_stock" value="" style="background-color:#EBF9D6;">
                         </div>
-
+                        <!--
                         <div class="form-group col-sm-12">
                             <label class="col-form-label">Descripcion</label>
                             <textarea name="prod_descripcion" id="prod_descripcion" class="form-control" cols="30" rows="auto" readonly=""></textarea>
                         </div>
-                        <!--
+                        
                         <div class="form-group col-sm-5">
                             <label class="col-form-label">Forma</label>
                             <input type="text" class="form-control" readonly="" id="prod_forma" name="prod_forma" value="">

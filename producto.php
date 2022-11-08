@@ -120,7 +120,7 @@ $row = $resultado->fetch_assoc();
         <script>
             function EditarProducto(datos){
                 vector=datos.split('||');
-                $('#prod_id').val(vector[0]);
+                $('#prod_id_update').val(vector[0]);
                 $('#prod_nombre_comercial_update').val(vector[1]);
                 $('#prod_imagen_update').val(vector[2]);
                 $('#prod_fabricante_update').val(vector[3]);
@@ -135,14 +135,16 @@ $row = $resultado->fetch_assoc();
                 $('#prod_precio_unitario_update').val(vector[12]);
                 $('#prod_barcode_update').val(vector[13]);
                 $('#prod_estado_update').val(vector[14]);
-                $('#comp_tipo_compra_update').val(vector[15]);
-                $('#comp_detalle_update').val(vector[16]);
+                $('#comp_id_update').val(vector[15]);
+                $('#comp_tipo_compra_update').val(vector[16]);
+                $('#comp_detalle_update').val(vector[17]);
             }
             function AbastecerProducto(datos) {
                 vector = datos.split('||');
-                $('#prod_id').val(vector[0]);
+                $('#prod_id_abastecer').val(vector[0]);
                 $('#prod_nombre_comercial_abastecer').val(vector[1]);//
                 $('#prod_stock_abastecer').val(vector[8]); //
+                $('#precio_compra_anterior').val(vector[10]);//
                 $('#precio_venta_anterior').val(vector[11]);//
                 $('#precio_unitario_anterior').val(vector[12]);//
             }
@@ -171,6 +173,13 @@ $row = $resultado->fetch_assoc();
                                     Swal.fire({
                                         type: 'success',
                                         title: 'Tu registro de producto a sido Deshabilitado.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    })
+                                }else {
+                                    Swal.fire({
+                                        type: 'error',
+                                        title: 'Se ha Producido un Error.',
                                         showConfirmButton: false,
                                         timer: 2000
                                     })
@@ -208,6 +217,13 @@ $row = $resultado->fetch_assoc();
                                         showConfirmButton: false,
                                         timer: 2000
                                     })
+                                }else {
+                                    Swal.fire({
+                                        type: 'error',
+                                        title: 'Se ha Producido un Error.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    })
                                 }
                             }
                         });
@@ -236,6 +252,71 @@ $row = $resultado->fetch_assoc();
                                 Swal.fire({
                                     type: 'success',
                                     title: 'Producto Agregado Exitosamente.',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                            } else {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Se ha Producido un Error.',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                            }
+                        }
+                    });
+                });
+
+                $('#update_producto').click(function(){
+                    var datos = $('#formulario_update_producto').serialize();
+                    //alert(datos); return false;
+                    $.ajax({
+                        type:"POST",
+                        url:"assets/inc/update_producto.php",
+                        data:datos,
+                        success:function(response){
+                            if (response == 1) {
+                                $('#tabla_producto').load('tabla_producto.php');
+                                $('#modal_actualizar_producto').on('hidden.bs.modal', function (){
+                                    //$(this).find('#formulario_actualizar_producto')[0].reset();
+                                });
+                                Swal.fire({
+                                    type: 'success',
+                                    title: 'Producto Actualizado Exitosamente.',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                            } else {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Se ha Producido un Error.',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                            }
+                        }
+                    });
+                });
+
+                $('#modal_abastecer_producto').on('shown.bs.modal',function(){
+                    $('#cantidad_comprada_abastecer').trigger('focus');
+                });
+                $('#abastecer_producto').click(function(){
+                    var datos = $('#formulario_abastecer_producto').serialize();
+                    //alert(datos); return false;
+                    $.ajax({
+                        type:"POST",
+                        url:"assets/inc/create_compra.php",
+                        data:datos,
+                        success:function(response){
+                            if (response == 1) {
+                                $('#tabla_producto').load('tabla_producto.php');
+                                $('#modal_abastecer_producto').on('hidden.bs.modal', function (){
+                                    $(this).find('#formulario_abastecer_producto')[0].reset();
+                                });
+                                Swal.fire({
+                                    type: 'success',
+                                    title: 'Producto Abastecido Exitosamente.',
                                     showConfirmButton: false,
                                     timer: 2000
                                 })
@@ -286,6 +367,21 @@ $row = $resultado->fetch_assoc();
                     var precioUni = parseFloat(precioCom / cantidad);
                     document.getElementById("prod_precio_unitario").value = precioUni;
                 });
+                //EVENTO DE PRECIO UNITARIO UPDATE
+                $("#prod_precio_compra_update").keyup(function() {
+                    var cantidad = document.getElementById("prod_stock_update").value;
+                    var precioCom = document.getElementById("prod_precio_compra_update").value;
+                    var precioUni = parseFloat(precioCom / cantidad);
+                    document.getElementById("prod_precio_unitario_update").value = precioUni;
+                });
+                //EVENTO DE PRECIO UNITARIO ABASTECER
+                $("#precio_compra_abastecer").keyup(function() {
+                    var cantidad = document.getElementById("cantidad_comprada_abastecer").value;
+                    var precioCom = document.getElementById("precio_compra_abastecer").value;
+                    var precioUni = parseFloat(precioCom / cantidad);
+                    document.getElementById("precio_unitario_abastecer").value = precioUni;
+                });
+
             });
         </script>
     </body>

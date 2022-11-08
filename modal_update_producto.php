@@ -1,3 +1,6 @@
+<?php
+    
+?>
 <!-- MODAL PARA ACTUALIZAR PRODUCTO -->
 <div id="modal_actualizar_producto" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;" aria-labelledby="exampleModalToggleLabel">
     <div class="modal-dialog modal-lg">
@@ -7,21 +10,23 @@
                 <h4 class="modal-title" id="myModalLabel">Actualizar Productos</h4>
             </div>
             <div class="modal-body">
-                <form id="formulario_crear_producto" action="#" class="parsley_create_producto" novalidate="" method="POST">
+                <form id="formulario_update_producto" action="#" class="parsley_create_producto" novalidate="" method="POST">
                     
                     <h3>Datos del Producto</h3>
+                    <input type="text" id="prod_id_update" name="prod_id_update" readonly hidden>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label ui-front">Nombre Comercial:</label>
                         <div class="col-md-6">
-                            <input type="search" id="prod_nombre_comercial_update" name="prod_nombre_comercial_update" class="form-control form-control-sm" value="" style="text-transform: uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" parsley-trigger="change" data-parsley-error-message="‎Este valor es obligatorio.‎" required>
+                            <input type="text" id="prod_nombre_comercial_update" name="prod_nombre_comercial_update" class="form-control form-control-sm" value="" style="text-transform: uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" parsley-trigger="change" data-parsley-error-message="‎Este valor es obligatorio.‎" required>
                         </div>
                     </div>
+                    <input type="text" id="prod_imagen_update" name="prod_imagen_update" readonly hidden>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label">Fabricante:</label>
                         <div class="col-md-6">
-                            <input type="text" id="prod_fabricante_update" name="prod_fabricante_update" class="form-control form-control-sm" value="">
+                            <input type="text" id="prod_fabricante_update" name="prod_fabricante_update" class="form-control form-control-sm" value="" onkeyup="javascript:this.value=this.value.toUpperCase();">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -35,28 +40,28 @@
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label">Codigo:</label>
                         <div class="col-md-6">
-                            <input type="text" id="prod_codigo_update" name="prod_codigo_update" class="form-control form-control-sm" value="">
+                            <input type="text" id="prod_codigo_update" name="prod_codigo_update" class="form-control form-control-sm" value="" onkeyup="javascript:this.value=this.value.toUpperCase();">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label">Descripcion:</label>
                         <div class="col-md-6">
-                            <textarea class="form-control form-control-sm" name="prod_descripcion_update" id="prod_descripcion_update" cols="30" rows="auto"></textarea>
+                            <textarea class="form-control form-control-sm" name="prod_descripcion_update" id="prod_descripcion_update" cols="30" rows="auto" ></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label">Vendedor:</label>
                         <div class="col-md-6">
-                            <input type="text" id="comp_vendedor_update" name="comp_vendedor_update" class="form-control form-control-sm" value="">
+                            <input type="text" id="comp_vendedor_update" name="comp_vendedor_update" class="form-control form-control-sm" value="" onkeyup="javascript:this.value=this.value.toUpperCase();">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label">Código de Barras:</label>
                         <div class="col-md-6">
-                            <input type="text" id="prod_barcode_update" name="prod_barcode_update" class="form-control form-control-sm">
+                            <input type="text" id="prod_barcode_update" name="prod_barcode_update" class="form-control form-control-sm" onkeyup="javascript:this.value=this.value.toUpperCase();">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -69,9 +74,9 @@
                             </select>
                         </div>
                     </div>
-                
-            
+        
                     <legend>Datos de la Primera compra</legend>
+                    <input type="text" id="comp_id_update" name="comp_id_update" readonly hidden>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label">Stock Minimo:</label>
@@ -97,7 +102,7 @@
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label">Precio Unitario:</label>
                         <div class="col-md-6">
-                            <input type="text" readonly id="prod_precio_unitario_update" name="prod_precio_unitario_update" class="form-control form-control-sm">
+                            <input type="number" readonly id="prod_precio_unitario_update" name="prod_precio_unitario_update" class="form-control form-control-sm">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -123,7 +128,7 @@
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label">Detalle:</label>
                         <div class="col-md-6">
-                            <input type="text" id="comp_detalle_update" name="comp_detalle_update" class="form-control form-control-sm" value="">
+                            <input type="text" id="comp_detalle_update" name="comp_detalle_update" class="form-control form-control-sm" value="" onkeyup="javascript:this.value=this.value.toUpperCase();">
                         </div>
                     </div>
                     <!--

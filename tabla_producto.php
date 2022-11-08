@@ -49,14 +49,14 @@
         <th data-priority="1" width="150">Nombre</th>
         <th data-priority="3" width="50">Imagen</th>
         <th data-priority="6" width="100">Precio de Venta</th>
-        <th data-priority="2" width="50">Stock</th>
+        <th data-priority="2" width="50">Cantidad</th>
         <th data-priority="4" width="50">Estado</th>
         <th data-priority="5" width="100">Op.</th>
     </thead>
     <tbody>
         <?php
         $sql = "SELECT * FROM producto, compra WHERE producto.prod_id = compra.prod_id ORDER BY producto.prod_id";
-        
+        $sql1 = "SELECT * FROM producto;";
         $resultado = mysqli_query($conexion, $sql);
         while ($registro = mysqli_fetch_assoc($resultado))
         {
@@ -80,8 +80,10 @@
                         $registro["prod_precio_unitario"] . "||" . 
                         $registro["prod_barcode"] . "||" . 
                         $estado . "||" . 
+                        $registro["comp_id"] . "||" . 
                         $registro["comp_tipo"] . "||" . 
                         $registro["comp_detalle"];
+
         ?>
             <tr>
                 <td><?php echo $registro["prod_nombre_comercial"]; ?></td>
@@ -102,21 +104,23 @@
                         }else{
                             echo '<p style="text-color: red;">'.$registro["prod_stock"].'</p';*/
                             echo $registro["prod_stock"];
-                        
-                         
                     ?>
                 </td>
                 <td align="center">
                     <?php 
                         $est = $registro["prod_estado"];
-                        if ($est == "1" && $registro["prod_stock"] >'0') { ?>
+                        if ($est == "1") { ?>
                             <div class="btn-group" role="group">
-                                <a href="javascript:void(0);" class="btn btn-success btn-sm" title="Deshabilitar Producto" onclick="DesactivarProducto('<?php echo $registro['prod_id']."||".$registro['prod_nombre_comercial']; ?>')">ACTIVO</a>
+                                <a href="javascript:void(0);" class="btn btn-success btn-sm" title="Deshabilitar Producto" onclick="DesactivarProducto('<?php echo $registro['prod_id']."||".$registro['prod_nombre_comercial']; ?>')">
+                                    ACTIVO
+                                </a>
                             </div>
                         <?php }
                         else{?>
                             <div class="btn-group" role="group">
-                                <a href="javascript:void(0);" class="btn btn-danger btn-sm" title="Habilitar Producto" onclick="ActivarProducto('<?php echo $registro['prod_id']."||".$registro['prod_nombre_comercial']; ?>')">INACTIVO</a>
+                                <a href="javascript:void(0);" class="btn btn-danger btn-sm" title="Habilitar Producto" onclick="ActivarProducto('<?php echo $registro['prod_id']."||".$registro['prod_nombre_comercial']; ?>')">
+                                    INACTIVO
+                                </a>
                             </div>
                         <?php }
                     ?></td>

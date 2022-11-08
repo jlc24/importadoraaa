@@ -78,7 +78,11 @@ $row = $resultado->fetch_assoc();
                                             <span data-plugin="counterup">
                                                 <?php //include('assets/inc/conexion.php');
                                                 $filas = mysqli_fetch_row(mysqli_query($conexion, "SELECT SUM(fac_total) FROM factura"));
-                                                echo number_format($filas[0]); ?>
+                                                if ($filas != 'NULL') {
+                                                    echo "0";
+                                                }else{
+                                                    echo number_format($filas[0]);
+                                                } ?>
                                             </span>
                                         </h3>
                                         <p class="m-0">Ene - Dic <?php echo date("Y"); ?></p>
