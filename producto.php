@@ -127,26 +127,17 @@ $row = $resultado->fetch_assoc();
                 $('#prod_ubicacion_update').val(vector[4]); 
                 $('#prod_codigo_update').val(vector[5]);
                 $('#prod_descripcion_update').val(vector[6]);
-                $('#comp_vendedor_update').val(vector[7]);
-                $('#prod_stock_update').val(vector[8]);
-                $('#prod_stock_minimo_update').val(vector[9]);
-                $('#prod_precio_compra_update').val(vector[10]);
-                $('#prod_precio_venta_update').val(vector[11]);
-                $('#prod_precio_unitario_update').val(vector[12]);
-                $('#prod_barcode_update').val(vector[13]);
-                $('#prod_estado_update').val(vector[14]);
-                $('#comp_id_update').val(vector[15]);
-                $('#comp_tipo_compra_update').val(vector[16]);
-                $('#comp_detalle_update').val(vector[17]);
+                $('#prod_barcode_update').val(vector[12]);
+                $('#prod_estado_update').val(vector[13]);
             }
             function AbastecerProducto(datos) {
                 vector = datos.split('||');
                 $('#prod_id_abastecer').val(vector[0]);
                 $('#prod_nombre_comercial_abastecer').val(vector[1]);//
-                $('#prod_stock_abastecer').val(vector[8]); //
-                $('#precio_compra_anterior').val(vector[10]);//
-                $('#precio_venta_anterior').val(vector[11]);//
-                $('#precio_unitario_anterior').val(vector[12]);//
+                $('#prod_stock_abastecer').val(vector[7]); //
+                $('#precio_compra_anterior').val(vector[9]);//
+                $('#precio_venta_anterior').val(vector[10]);//
+                $('#precio_unitario_anterior').val(vector[11]);//
             }
             function DesactivarProducto(datos) {
                 vector = datos.split('||');

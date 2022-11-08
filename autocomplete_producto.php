@@ -2,11 +2,8 @@
 include ('assets/inc/conexion.php');
 if (isset($_POST['search']))
 {
-    $consulta = mysqli_query($conexion, "SELECT * FROM producto WHERE prod_estado = '1' AND prod_nombre_comercial 
-        LIKE '%" . mysqli_real_escape_string($conexion, ($_POST['search'])) . "%' 
-        OR prod_fabricante like '%" . mysqli_real_escape_string($conexion, ($_POST['search'])) . "%' 
-        OR prod_ubicacion like '%" . mysqli_real_escape_string($conexion, ($_POST['search'])) . "%' 
-        OR prod_barcode like '%" . mysqli_real_escape_string($conexion, ($_POST['search'])) . "%' 
+    $consulta = mysqli_query($conexion, "SELECT * FROM producto WHERE prod_estado = '0' AND prod_nombre_comercial 
+        LIKE '%" . mysqli_real_escape_string($conexion, ($_POST['search'])) . "%'
         ORDER BY prod_fecha_registro ASC LIMIT 0 ,11");
     $return_arr = array();
     while ($row = mysqli_fetch_array($consulta))

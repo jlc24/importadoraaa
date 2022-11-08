@@ -55,8 +55,8 @@
     </thead>
     <tbody>
         <?php
-        $sql = "SELECT * FROM producto, compra WHERE producto.prod_id = compra.prod_id ORDER BY producto.prod_id";
-        $sql1 = "SELECT * FROM producto;";
+        $sql = "SELECT * FROM producto";
+        
         $resultado = mysqli_query($conexion, $sql);
         while ($registro = mysqli_fetch_assoc($resultado))
         {
@@ -72,17 +72,13 @@
                         $registro["prod_ubicacion"] . "||" . 
                         $registro["prod_codigo"] . "||" . 
                         $registro["prod_descripcion"] . "||" . 
-                        $registro["comp_vendedor"] . "||" . 
                         $registro["prod_stock"] . "||" . 
                         $registro["prod_stock_minimo"] . "||" . 
                         $registro["prod_precio_compra"] . "||" . 
                         $registro["prod_precio_venta"] . "||" . 
                         $registro["prod_precio_unitario"] . "||" . 
                         $registro["prod_barcode"] . "||" . 
-                        $estado . "||" . 
-                        $registro["comp_id"] . "||" . 
-                        $registro["comp_tipo"] . "||" . 
-                        $registro["comp_detalle"];
+                        $estado;
 
         ?>
             <tr>

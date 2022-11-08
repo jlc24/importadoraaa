@@ -1,18 +1,13 @@
-<?php
-    
-?>
 <!-- MODAL PARA ACTUALIZAR PRODUCTO -->
 <div id="modal_actualizar_producto" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;" aria-labelledby="exampleModalToggleLabel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">Actualizar Productos</h4>
+                <h4 class="modal-title" id="myModalLabel">Editar Productos</h4>
             </div>
             <div class="modal-body">
                 <form id="formulario_update_producto" action="#" class="parsley_create_producto" novalidate="" method="POST">
-                    
-                    <h3>Datos del Producto</h3>
                     <input type="text" id="prod_id_update" name="prod_id_update" readonly hidden>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
@@ -50,13 +45,7 @@
                             <textarea class="form-control form-control-sm" name="prod_descripcion_update" id="prod_descripcion_update" cols="30" rows="auto" ></textarea>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <label class="col-md-3 col-form-label">Vendedor:</label>
-                        <div class="col-md-6">
-                            <input type="text" id="comp_vendedor_update" name="comp_vendedor_update" class="form-control form-control-sm" value="" onkeyup="javascript:this.value=this.value.toUpperCase();">
-                        </div>
-                    </div>
+                    
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
                         <label class="col-md-3 col-form-label">Código de Barras:</label>
@@ -72,63 +61,6 @@
                                 <option value="ACTIVO">ACTIVO</option>
                                 <option value="INACTIVO">INACTIVO</option>
                             </select>
-                        </div>
-                    </div>
-        
-                    <legend>Datos de la Primera compra</legend>
-                    <input type="text" id="comp_id_update" name="comp_id_update" readonly hidden>
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <label class="col-md-3 col-form-label">Stock Minimo:</label>
-                        <div class="col-md-6">
-                            <input type="number" min="0" id="prod_stock_minimo_update" name="prod_stock_minimo_update" class="form-control form-control-sm" value="0">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <label class="col-md-3 col-form-label">Cantidad:</label>
-                        <div class="col-md-6">
-                            <input type="number" min="0" id="prod_stock_update" name="prod_stock_update" class="form-control form-control-sm" value="0" parsley-trigger="change" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <label class="col-md-3 col-form-label">Precio de Compra (Bs):</label>
-                        <div class="col-md-6">
-                            <input type="number" min="0" id="prod_precio_compra_update" name="prod_precio_compra_update" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <label class="col-md-3 col-form-label">Precio Unitario:</label>
-                        <div class="col-md-6">
-                            <input type="number" readonly id="prod_precio_unitario_update" name="prod_precio_unitario_update" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <label class="col-md-3 col-form-label">Precio de Venta (Bs):</label>
-                        <div class="col-md-6">
-                            <input type="number" min="0" id="prod_precio_venta_update" name="prod_precio_venta_update" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <label class="col-md-3 col-form-label">Tipo Compra</label>
-                        <div class="col-md-6">
-                            <select class="custom-select custom-select-sm" id="comp_tipo_compra_update" name="comp_tipo_compra_update">
-                                <option value="CONTADO">CONTADO</option>
-                                <option value="CREDITO">CRÉDITO</option>
-                                <option value="OTRO">OTRO</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row">
-                        <div class="col-sm-1"></div>
-                        <label class="col-md-3 col-form-label">Detalle:</label>
-                        <div class="col-md-6">
-                            <input type="text" id="comp_detalle_update" name="comp_detalle_update" class="form-control form-control-sm" value="" onkeyup="javascript:this.value=this.value.toUpperCase();">
                         </div>
                     </div>
                     <!--

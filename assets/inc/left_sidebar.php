@@ -38,7 +38,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="caja.php">
+                                <a href="#">
                                     <i class="dripicons-inbox"></i>
                                     <span> Caja </span>
                                 </a>
@@ -58,7 +58,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="nota.php">
+                                <a href="#">
                                     <i class="far fa-sticky-note"></i>
                                     <span> Notas y Apuntes </span>
                                 </a>
