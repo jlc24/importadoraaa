@@ -66,9 +66,7 @@ $row = $resultado->fetch_assoc();
                                 </div>
                                 <!-- fin tabla medicamento -->
 
-                                <?php include "modal_create_producto.php"; ?>
-                                <?php include "modal_update_producto.php"; ?>
-                                <?php include "modal_abastecer_producto.php" ?>
+                                
                                 
                                 <!-- MODAL PARA MOSTRAR IMAGEN DEL PRODUCTO 
                                 <div id="imagen" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
@@ -84,8 +82,25 @@ $row = $resultado->fetch_assoc();
                                         </div>
                                     </div>
                                 </div>-->
-
-                               
+                                <?php include "modal_create_producto.php"; ?>
+                                <div id="modal_abastecer_producto" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;" aria-labelledby="exampleModalToggleLabel">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h3 class="modal-title" id="myModalLabel">Abastecer Producto</h3>
+                                            </div>
+                                            <div class="modal-body"  id="abastecer_producto">
+                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="btn_abastecer_producto" class="btn btn-purple waves-effect" data-dismiss="modal">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
 
                             </div>
                             <!-- end col-12 -->
@@ -118,27 +133,30 @@ $row = $resultado->fetch_assoc();
         <!-- end Libs -->
         
         <script>
-            function EditarProducto(datos){
-                vector=datos.split('||');
-                $('#prod_id_update').val(vector[0]);
-                $('#prod_nombre_comercial_update').val(vector[1]);
-                $('#prod_imagen_update').val(vector[2]);
-                $('#prod_fabricante_update').val(vector[3]);
-                $('#prod_ubicacion_update').val(vector[4]); 
-                $('#prod_codigo_update').val(vector[5]);
-                $('#prod_descripcion_update').val(vector[6]);
-                $('#prod_barcode_update').val(vector[12]);
-                $('#prod_estado_update').val(vector[13]);
-            }
-            function AbastecerProducto(datos) {
-                vector = datos.split('||');
-                $('#prod_id_abastecer').val(vector[0]);
-                $('#prod_nombre_comercial_abastecer').val(vector[1]);//
-                $('#prod_stock_abastecer').val(vector[7]); //
-                $('#precio_compra_anterior').val(vector[9]);//
-                $('#precio_venta_anterior').val(vector[10]);//
-                $('#precio_unitario_anterior').val(vector[11]);//
-            }
+            //EVENTO DE PRECIO UNITARIO
+            $("#prod_precio_compra").keyup(function() {
+                var cantidad = document.getElementById("prod_stock").value;
+                var precioCom = document.getElementById("prod_precio_compra").value;
+                var precioUni = parseFloat(precioCom / cantidad);
+                document.getElementById("prod_precio_unitario").value = precioUni;
+                console.log(precioUni);
+            });
+            //EVENTO DE PRECIO UNITARIO UPDATE
+            $("#prod_precio_compra_update").on("keyup change",function() {
+                var cantidad = document.getElementById("prod_stock_update").value;
+                var precioCom = document.getElementById("prod_precio_compra_update").value;
+                var precioUni = parseFloat(precioCom / cantidad);
+                document.getElementById("prod_precio_unitario_update").value = precioUni;
+                console.log(precioUni);
+            }).keyup();
+            //EVENTO DE PRECIO UNITARIO ABASTECER
+            $("#precio_compra_abastecer").keyup(function() {
+                var cantidad = document.getElementById("cantidad_comprada_abastecer").value;
+                var precioCom = document.getElementById("precio_compra_abastecer").value;
+                var precioUni = parseFloat(precioCom / cantidad);
+                document.getElementById("unitario_abastecer").value = precioUni;
+                console.log(precioUni);
+            });
             function DesactivarProducto(datos) {
                 vector = datos.split('||');
                 Swal.fire({
@@ -228,12 +246,38 @@ $row = $resultado->fetch_assoc();
                     $('#prod_nombre_comercial').trigger('focus');
                 });
                 $('#create_producto').click(function(){
-                    var datos = $('#formulario_crear_producto').serialize();
+                    //var datos = $('#formulario_crear_producto').serialize();
+                    var file_data = $("#prod_imagen").prop("files")[0];
+                    var datos = new FormData();
+                    datos.append("prod_imagen", file_data);
+                    datos.append("prod_nombre_comercial", $("#prod_nombre_comercial").val());
+                    datos.append("prod_fabricante", $("#prod_fabricante").val());
+                    datos.append("prod_ubicacion", $("#prod_ubicacion").val());
+                    datos.append("prod_codigo", $("#prod_codigo").val());
+                    datos.append("prod_descripcion", $("#prod_descripcion").val());
+                    datos.append("comp_vendedor", $("#comp_vendedor").val());
+                    datos.append("prod_barcode", $("#prod_barcode").val());
+                    datos.append("prod_estado", $("#prod_estado").val());
+                    datos.append("prod_stock_minimo", $("#prod_stock_minimo").val());
+                    datos.append("prod_stock", $("#prod_stock").val());
+                    datos.append("prod_precio_compra", $("#prod_precio_compra").val());
+                    datos.append("prod_precio_unitario", $("#prod_precio_unitario").val());
+                    datos.append("prod_precio_venta", $("#prod_precio_venta").val());
+                    datos.append("comp_tipo_compra", $("#comp_tipo_compra").val());
+                    datos.append("comp_detalle", $("#comp_detalle").val());
+                    for (var value of datos.values()) {
+                        console.log(value);
+                    }
                     //alert(datos); return false;
                     $.ajax({
-                        type:"POST",
+                        cahe: false,
+                        contentType: false,
+                        data: datos,
+                        dataType: 'JSON',
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        method:"POST",
                         url:"assets/inc/create_producto.php",
-                        data:datos,
                         success:function(response){
                             if (response == 1) {
                                 $('#tabla_producto').load('tabla_producto.php');
@@ -288,13 +332,27 @@ $row = $resultado->fetch_assoc();
                         }
                     });
                 });
-
-                $('#modal_abastecer_producto').on('shown.bs.modal',function(){
-                    $('#cantidad_comprada_abastecer').trigger('focus');
+                $(document).on("click", ".btnAbastecerProducto", function() {
+                    cadena = "prod_id=" + $(this).closest('tr').find('td:eq(0)').text();
+                    //alert(cadena); return false;
+                    $.ajax({
+                        type: "POST",
+                        url: "assets/inc/update_producto_id.php",
+                        data: cadena,
+                        success: function(response) {
+                                if(response) {
+                                    $('#abastecer_producto').load('modal_abastecer_producto.php');
+                                    $('#modal_abastecer_producto').modal('show');
+                                    $('#modal_abastecer_producto').on('shown.bs.modal',function(){
+                                        $('#cantidad_comprada_abastecer').trigger('focus');
+                                    });
+                                }
+                            }
+                    });
                 });
-                $('#abastecer_producto').click(function(){
+                $('#btn_abastecer_producto').click(function(){
                     var datos = $('#formulario_abastecer_producto').serialize();
-                    //alert(datos); return false;
+                    alert(datos); return false;
                     $.ajax({
                         type:"POST",
                         url:"assets/inc/create_compra.php",
@@ -351,29 +409,8 @@ $row = $resultado->fetch_assoc();
                         })
                     }
                 });
-                //EVENTO DE PRECIO UNITARIO
-                $("#prod_precio_compra").keyup(function() {
-                    var cantidad = document.getElementById("prod_stock").value;
-                    var precioCom = document.getElementById("prod_precio_compra").value;
-                    var precioUni = parseFloat(precioCom / cantidad);
-                    document.getElementById("prod_precio_unitario").value = precioUni;
-                });
-                //EVENTO DE PRECIO UNITARIO UPDATE
-                $("#prod_precio_compra_update").keyup(function() {
-                    var cantidad = document.getElementById("prod_stock_update").value;
-                    var precioCom = document.getElementById("prod_precio_compra_update").value;
-                    var precioUni = parseFloat(precioCom / cantidad);
-                    document.getElementById("prod_precio_unitario_update").value = precioUni;
-                });
-                //EVENTO DE PRECIO UNITARIO ABASTECER
-                $("#precio_compra_abastecer").keyup(function() {
-                    var cantidad = document.getElementById("cantidad_comprada_abastecer").value;
-                    var precioCom = document.getElementById("precio_compra_abastecer").value;
-                    var precioUni = parseFloat(precioCom / cantidad);
-                    document.getElementById("precio_unitario_abastecer").value = precioUni;
-                });
-
             });
+            
         </script>
     </body>
 </html>

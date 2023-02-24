@@ -8,7 +8,7 @@
 	$fac = (int)$fila[0];
 	$pro = $_POST['prod_id'];
 	$nom = $_POST['prod_nombre'];
-	$com = $_POST['prod_precio_compra'];
+	$com = $_POST['prod_precio_unitario'];
 	$ven = $_POST['prod_precio_venta'];
 	$sto = $_POST['prod_stock'];
 

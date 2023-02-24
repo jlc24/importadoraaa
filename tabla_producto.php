@@ -46,6 +46,7 @@
 
 <table id="producto" class="table mb-0 table-sm table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
     <thead style="background-color: #DBEDC8;">
+        <th hidden>ID</th>
         <th data-priority="1" width="150">Nombre</th>
         <th data-priority="3" width="50">Imagen</th>
         <th data-priority="6" width="100">Precio de Venta</th>
@@ -55,7 +56,7 @@
     </thead>
     <tbody>
         <?php
-        $sql = "SELECT * FROM producto";
+        $sql = "SELECT * FROM producto ORDER BY prod_estado DESC";
         
         $resultado = mysqli_query($conexion, $sql);
         while ($registro = mysqli_fetch_assoc($resultado))
@@ -79,16 +80,16 @@
                         $registro["prod_precio_unitario"] . "||" . 
                         $registro["prod_barcode"] . "||" . 
                         $estado;
-
         ?>
             <tr>
+                <td hidden><?php echo $registro['prod_id'] ?></td>
                 <td><?php echo $registro["prod_nombre_comercial"]; ?></td>
                 <td align="center"> 
                     <?php
-                        if ($registro["prod_imagen"] != "/assets/images/default/404.png") {
-                            echo '<a href="#" data-toggle="modal" data-target="#imagen" title="Ampliar Imagen"><img onclick="verImagen(this)" src="'.$registro["prod_imagen"].'" class="img-thumbnail rounded mx-auto d-block image" id="image" width="50px"></a> ';
+                        if ($registro["prod_imagen"] != "") {
+                            echo '<a href="#" data-toggle="modal" data-target="#imagen" title="Ampliar Imagen"><img onclick="verImagen(this)" src="'.$registro["prod_imagen"].'" class="img-thumbnail rounded mx-auto d-block image" id="image" width="100px"></a> ';
                         }else{
-                            echo '<img src="/assets/images/default/404.png" class="img-thumbnail rounded mx-auto d-block" width="50px">';
+                            echo '<a href="#" data-toggle="modal" data-target="#imagen" title="Ampliar Imagen"><img src="assets/images/default/404.png" class="img-thumbnail rounded mx-auto d-block" width="100px"></a>';
                         }
                     ?>
                 </td>
@@ -122,10 +123,10 @@
                     ?></td>
                 <td align="center">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <a class="btn btn-outline-success" type="button" href="#" data-toggle="modal" data-target="#modal_abastecer_producto" onclick="AbastecerProducto('<?php echo $datos; ?>')" title="Abastecer Producto">
+                        <a class="btn btn-outline-success btnAbastecerProducto" type="button" href="javascript:void(0);" title="Abastecer Producto">
                             <i class="fas fa-plus-circle" ></i>
                         </a>
-                        <a class="btn btn-outline-primary" type="button" href="#" data-toggle="modal" data-target="#modal_actualizar_producto" onclick="EditarProducto('<?php echo $datos; ?>')" title="Editar Producto">
+                        <a class="btn btn-outline-primary btnActualizarProducto" type="button" href="javascript:void(0);" title="Editar Producto">
                             <i class="far fa-edit"></i>
                         </a>  
                     </div>

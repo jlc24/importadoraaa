@@ -194,30 +194,6 @@ CREATE TABLE IF NOT EXISTS `configuracion` (
 /*!40000 ALTER TABLE `configuracion` DISABLE KEYS */;
 /*!40000 ALTER TABLE `configuracion` ENABLE KEYS */;
 
--- Volcando estructura para tabla importadora.detalle_factura
-CREATE TABLE IF NOT EXISTS `detalle_factura` (
-  `det_id` int(11) NOT NULL AUTO_INCREMENT,
-  `fac_id` int(11) DEFAULT NULL,
-  `prod_id` int(11) NOT NULL,
-  `det_producto` varchar(200) NOT NULL,
-  `det_cantidad` int(11) NOT NULL,
-  `det_precio_unitario` decimal(7,2) NOT NULL,
-  `det_subtotal` decimal(7,2) NOT NULL,
-  `det_utilidad` decimal(7,2) NOT NULL,
-  `det_fecha` date DEFAULT NULL,
-  `det_codigo` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`det_id`),
-  KEY `det_id` (`det_id`) USING BTREE,
-  KEY `prod_id` (`prod_id`),
-  KEY `fac_id` (`fac_id`),
-  CONSTRAINT `fac_id` FOREIGN KEY (`fac_id`) REFERENCES `factura` (`fac_id`),
-  CONSTRAINT `prod_id` FOREIGN KEY (`prod_id`) REFERENCES `producto` (`prod_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci ROW_FORMAT=COMPACT;
-
--- Volcando datos para la tabla importadora.detalle_factura: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `detalle_factura` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_factura` ENABLE KEYS */;
-
 -- Volcando estructura para tabla importadora.factura
 CREATE TABLE IF NOT EXISTS `factura` (
   `fac_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -263,7 +239,29 @@ CREATE TABLE IF NOT EXISTS `nota` (
 /*!40000 ALTER TABLE `nota` DISABLE KEYS */;
 /*!40000 ALTER TABLE `nota` ENABLE KEYS */;
 
+-- Volcando estructura para tabla importadora.detalle_factura
+CREATE TABLE IF NOT EXISTS `detalle_factura` (
+  `det_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fac_id` int(11) DEFAULT NULL,
+  `prod_id` int(11) NOT NULL,
+  `det_producto` varchar(200) NOT NULL,
+  `det_cantidad` int(11) NOT NULL,
+  `det_precio_unitario` decimal(7,2) NOT NULL,
+  `det_subtotal` decimal(7,2) NOT NULL,
+  `det_utilidad` decimal(7,2) NOT NULL,
+  `det_fecha` date DEFAULT NULL,
+  `det_codigo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`det_id`),
+  KEY `det_id` (`det_id`) USING BTREE,
+  KEY `prod_id` (`prod_id`),
+  KEY `fac_id` (`fac_id`),
+  CONSTRAINT `fac_id` FOREIGN KEY (`fac_id`) REFERENCES `factura` (`fac_id`),
+  CONSTRAINT `prod_id` FOREIGN KEY (`prod_id`) REFERENCES `producto` (`prod_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci ROW_FORMAT=COMPACT;
 
+-- Volcando datos para la tabla importadora.detalle_factura: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `detalle_factura` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detalle_factura` ENABLE KEYS */;
 
 -- Volcando estructura para vista importadora.vistaproducto
 -- Creando tabla temporal para superar errores de dependencia de VIEW

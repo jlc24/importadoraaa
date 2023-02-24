@@ -23,7 +23,7 @@
                         </div>
                         <div class="form-group col-sm-2">
                             <label class="col-form-label">Precio</label>
-                            <input type="hidden" class="form-control" readonly="" id="prod_precio_compra" name="prod_precio_compra" value="">
+                            <input type="hidden" class="form-control" readonly="" id="prod_precio_unitario" name="prod_precio_unitario" value="">
                             <input type="text" class="form-control" readonly="" id="prod_precio_venta" name="prod_precio_venta" value="" style="background-color:#EBF9D6;">
                         </div>
                         <div class="form-group col-sm-2">

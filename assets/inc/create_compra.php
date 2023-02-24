@@ -15,6 +15,7 @@
 	/*ACTUALIZAMOS EL STOCK EN LA TABLA PRODUCTO*/
 	/*SUMANOS EL STOCK ACTUAL MAS LA CANTIDAD COMPRADA*/
 	$stock_actual = (int)$sto + (int)$can;
+	
 	$consulta = "UPDATE producto SET prod_stock = '$stock_actual', prod_precio_compra = '$com', prod_precio_unitario = '$uni', prod_precio_venta = '$ven' WHERE prod_id = '$prod_id'";
 	if(mysqli_query($conexion,$consulta)){//SI NUESTRO STOCK SE ACTUALIZA, ENTONCES INSERTAMOS LA COMPRA....
 		$sql="INSERT INTO compra (comp_id,prod_id,comp_caducidad,comp_detalle,comp_cantidad,comp_subtotal,comp_precio_unitario,comp_fecha_registro,comp_vendedor,comp_tipo)

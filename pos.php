@@ -430,7 +430,7 @@
                         $('#prod_descripcion').val(ui.item.descripcion);
                         $('#prod_nombre').val(ui.item.nombre);
                         $('#prod_stock').val(ui.item.stock);
-                        $('#prod_precio_compra').val(ui.item.precio_compra);
+                        $('#prod_precio_unitario').val(ui.item.precio_unitario);
                         $('#prod_precio_venta').val(ui.item.precio_venta);
                         $('#prod_codigo').val(ui.item.codigo);
                         $('#prod_registro').val(ui.item.registro);
@@ -469,7 +469,7 @@
                         //COLOCAMOS LA UTILIDAD EN EL INPUT 
                         cant = parseFloat($('#prod_cantidad').val());
                         pv = parseFloat($('#prod_precio_venta').val());
-                        pc = parseFloat($('#prod_precio_compra').val());
+                        pc = parseFloat($('#prod_precio_unitario').val());
                         desc = parseFloat($('#prod_descuento').val());
                         utilx = (pv - pc)*(cant-desc/100);
                         $('#prod_utilidad').val(utilx.toFixed(2));
@@ -491,33 +491,33 @@
             =     3. CALCULA EL SUBTOTAL y UTILIDAD DADO LA CANTIDAd A COMPRAR y EL DESCUENTO    =
             ===================================================================================-*/
                 $('#prod_cantidad').on('keyup change',function() {
-                    var cantidad = $(this).val();
+                    var cantidad = parseFloat($(this).val());
 
-                    pc = parseFloat($('#prod_precio_compra').val());
+                    pc = parseFloat($('#prod_precio_unitario').val());
                     pv = parseFloat($('#prod_precio_venta').val());
                     descuento = parseFloat($('#prod_descuento').val());
-                    util = (parseFloat(pv)-parseFloat(pc)).toFixed(2);
-                    // SUBTOTAL = CANTIDAD * (PRECIO_COMPRA + (UTILIDAD - UTILIDAD*DESCUENTO/100))
-                    subtotal = (parseFloat(cantidad)*((parseFloat(pc)+(parseFloat(util)-parseFloat(util)*(parseFloat(descuento)/100))))).toFixed(2);
-                    utilidad = (parseFloat(cantidad)*((parseFloat(util)-parseFloat(util)*(parseFloat(descuento)/100)))).toFixed(2);
-                    // UTILIDAD = CANTIDAD * (UTILIDAD - UTILIDAD*DESCUENTO/100)
+                    util = (cantidad*(pv-pc)).toFixed(2);
+                    // SUBTOTAL = CANTIDAD * PRECIO_VENTA  - (UTILIDAD*DESCUENTO/100)
+                    subtotal = (cantidad * pv - (util * (descuento/100))).toFixed(2);
+                    // UTILIDAD = CANTIDAD * UTILIDAD - (UTILIDAD*DESCUENTO/100)
+                    utilidad = (util - (util * (descuento/100))).toFixed(2);
                     $('#prod_subtotal').val(subtotal);
                     $('#prod_utilidad').val(utilidad);
 
                   }).keyup();
 
                 $('#prod_descuento').on('keyup change',function(){
-                    var descuento = $( this ).val();
-                    //$( "p" ).text( cantidad );
+                    var descuento = parseFloat($(this).val());
+                    
                     //porcentaje del valor total para precios de ventas
-                    pc = parseFloat($('#prod_precio_compra').val());
+                    pc = parseFloat($('#prod_precio_unitario').val());
                     pv = parseFloat($('#prod_precio_venta').val());
                     cantidad = parseFloat($('#prod_cantidad').val());
-                    util = (parseFloat(pv)-parseFloat(pc)).toFixed(2);
-
-                    subtotal = (parseFloat(cantidad)*((parseFloat(pc)+(parseFloat(util)-parseFloat(util)*(parseFloat(descuento)/100))))).toFixed(2);
-                    utilidad = (parseFloat(cantidad)*((parseFloat(util)-parseFloat(util)*(parseFloat(descuento)/100)))).toFixed(2);
-
+                    util = (cantidad*(pv-pc)).toFixed(2);
+                    // SUBTOTAL = CANTIDAD * PRECIO_VENTA  - (UTILIDAD*DESCUENTO/100)
+                    subtotal = (cantidad * pv - (util * (descuento/100))).toFixed(2);
+                    // UTILIDAD = CANTIDAD * UTILIDAD - (UTILIDAD*DESCUENTO/100)
+                    utilidad = (util - (util * (descuento/100))).toFixed(2);
                     //$('#subtotal').text(subtotal);
                     $('#prod_subtotal').val(subtotal);
                     $('#prod_utilidad').val(utilidad);
