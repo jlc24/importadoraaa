@@ -2,12 +2,12 @@
 	/*CONEXION A LA BASE DE DATOS*/
 	include('conexion.php');
 
-	$prod_id = $_POST['prod_id_abastecer'];
+	$prod_id = $_POST['prodid'];
 	$sto = $_POST['prod_stock_abastecer'];
-	$can = $_POST['cantidad_comprada_abastecer'];
-	$com = $_POST['precio_compra_abastecer'];
-	$uni = $_POST['precio_unitario_abastecer'];//NUEVO PRECIO DE COMPRA, POR QUE PERTENECE AL ULTIMO PRECIO DE COMPRA DEL PRODUCTO
-	$ven = $_POST['precio_venta_abastecer'];
+	$can = $_POST['cantidad_abastecer'];
+	$com = $_POST['precio_abastecer'];
+	$uni = $_POST['unitario_abastecer'];//NUEVO PRECIO DE COMPRA, POR QUE PERTENECE AL ULTIMO PRECIO DE COMPRA DEL PRODUCTO
+	$ven = $_POST['venta_abastecer'];
 	$tip = $_POST['prod_tipo_compra_abastecer'];
 	$rep = $_POST['prod_vendedor_abastecer'];
 	$det = $_POST['prod_detalle_abastecer'];

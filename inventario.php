@@ -54,11 +54,6 @@ $row = $resultado->fetch_assoc();
                             <div class="col-12">
                                 <div class="page-title-box">
                                     <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Farmacia</a></li>
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Inventario</a></li>
-                                            <li class="breadcrumb-item active" id="nombre_vendedor"><?php include 'nombre_laboratorio.php'; ?></li>
-                                        </ol>
 
                                     </div>
                                     <h4 class="page-title">
@@ -82,9 +77,7 @@ $row = $resultado->fetch_assoc();
                                 <!-- inicio tabla medicamento -->
                                 <div class="card-box table-responsive" id="tabla_recuento">
                                 </div>
-                                <?php include "modal_cambiar_laboratorio.php"; ?>
-                                <?php include "modal_cambiar_laboratorio_nick.php"; ?>
-                                <?php include "modal_update_recuento.php"; ?>
+                                
                             </div>
                             <!-- end col-12 -->
                         </div>

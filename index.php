@@ -133,6 +133,42 @@ $row = $resultado->fetch_assoc();
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card-box widget-box-two widget-two-custom ">
+                                <div class="media">
+                                    <div class="avatar-lg bg-icon rounded-circle align-self-center">
+                                        <img class="avatar-md" src="assets/images/icons/cart.svg" title="cart.svg">
+                                    </div>
+                                    <div class="wigdet-two-content media-body">
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Productos</p>
+                                        <h3 class="font-weight-medium my-2">
+                                            <span data-plugin="counterup">
+                                                <?php $sql = "SELECT COUNT(*) FROM producto";
+                                                $resultado = mysqli_query($conexion, $sql);
+                                                $filas = mysqli_fetch_row($resultado);
+                                                echo number_format($filas[0]); ?>
+                                            </span>
+                                        </h3>
+                                        <p class="m-0">Ene - Dic <?php echo date("Y"); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-sm-6">
+                            <div class="box box-solid bg-teal-gradient">
+                                <div class="box-header">
+                                    <i class="fa fa-th"></i>
+                                    <h3 class="box-title">Gráfico de Ventas</h3>
+                                </div>
+                                <div class="box-body border-radius-none nuevoGraficoVentas">
+                                    <div class="chart" id="line-chart-ventas" style="height: 250px;">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -13,9 +13,9 @@
             ?>
                 <form class="form-horizontal" id="formulario_abastecer_producto">
                     <div class="form-row">
-                    <input type="text" id="prod_id_abastecer" name="prod_id_abastecer" readonly hidden>
                         <div class="form-group col-lg-4">
                             <label class="col-form-label">Nombre Comercial</label>
+                            <input type="hidden" id="prodid" name="prodid" value="<?php echo $rows['prod_id']; ?>">
                             <input type="text" style="font-weight: 500; background-color:#EBF9D6;" class="form-control form-control-sm" id="prod_nombre_comercial_abastecer" name="prod_nombre_comercial_abastecer" readonly="" value="<?php echo $rows['prod_nombre_comercial']; ?>">
                         </div>
                         <legend>Datos anteriores del Producto</legend>
@@ -42,21 +42,21 @@
                         
                         <legend>Datos del Producto a Abastecer</legend>
                         <div class="form-group col-lg-2">
-                            <label class="col-form-label">Cantidad</label>
-                            <input type="number"  value="0" class="form-control form-control-sm" id="cantidad_comprada_abastecer" name="cantidad_comprada_abastecer">
+                            <label class="col-form-label" for="cantidad_abastecer">Cantidad</label>
+                            <input type="number" name="cantidad_abastecer" id="cantidad_abastecer" class="form-control form-control-sm" placeholder="0" onkeyup="cantidad('cantidad_abastecer', 'precio_abastecer', 'unitario_abastecer')" required>
                         </div>
                         <div class="form-group col-lg-3">
-                            <label class="col-form-label">Precio Compra (Bs)</label>
-                            <input type="number"  value="0" class="form-control form-control-sm" id="precio_compra_abastecer" name="precio_compra_abastecer">
+                            <label class="col-form-label" for="precio_abastecer">Precio Compra (Bs)</label>
+                            <input type="number" name="precio_abastecer" id="precio_abastecer" class="form-control form-control-sm" placeholder="0" onkeyup="cantidad('cantidad_abastecer', 'precio_abastecer', 'unitario_abastecer')" required>
                         </div>
                         
-                        <div class="form-group col-lg-3">
-                            <label class="col-form-label">Precio Unitario (Bs)</label>
-                            <input type="number"  value="0" class="form-control form-control-sm" id="precio_unitario_abastecer" name="precio_unitario_abastecer" readonly>
+                        <div class="form-group col-lg-3" >
+                            <label class="col-form-label" for="unitario_abastecer">Precio Unitario (Bs)</label>
+                            <input type="number" name="unitario_abastecer" id="unitario_abastecer" class="form-control form-control-sm" placeholder="0" readonly>
                         </div>
                         <div class="form-group col-lg-3">
-                            <label class="col-form-label">Precio Venta (Bs)</label>
-                            <input type="number" value="0" class="form-control form-control-sm" id="precio_venta_abastecer" name="precio_venta_abastecer">
+                            <label class="col-form-label" for="venta_abastecer">Precio Venta (Bs)</label>
+                            <input type="number" class="form-control form-control-sm" id="venta_abastecer" name="venta_abastecer" placeholder="0" required>
                         </div>
                         
                         <div class="form-group col-lg-3">
@@ -69,11 +69,11 @@
                         </div>
                         <div class="form-group col-lg-4">
                             <label class="col-form-label">Vendedor</label>
-                            <input type="text" class="form-control form-control-sm" id="prod_vendedor_abastecer" name="prod_vendedor_abastecer" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                            <input type="text" class="form-control form-control-sm" id="prod_vendedor_abastecer" name="prod_vendedor_abastecer" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                         <div class="form-group col-lg-4">
                             <label class="col-form-label">Detalle de Compra</label>
-                            <input type="text" class="form-control form-control-sm" id="prod_detalle_abastecer" name="prod_detalle_abastecer" placeholder="Ej. Caja de 6 unidades">
+                            <input type="text" class="form-control form-control-sm" id="prod_detalle_abastecer" name="prod_detalle_abastecer" placeholder="Ej. Caja de 6 unidades" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
                 </form>

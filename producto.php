@@ -64,26 +64,8 @@ $row = $resultado->fetch_assoc();
                                 <div class="card-box table-responsive" id="tabla_producto">
 
                                 </div>
-                                <!-- fin tabla medicamento -->
-
-                                
-                                
-                                <!-- MODAL PARA MOSTRAR IMAGEN DEL PRODUCTO 
-                                <div id="imagen" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                    <div class="modal-dialog modal-md">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            </div>
-                                            <div class="modal-body text-center">
-                                                <img id="previsualizar" src="/assets/images/default/404.png" class="img-thumbnail" width="200px">
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>-->
                                 <?php include "modal_create_producto.php"; ?>
-                                <div id="modal_abastecer_producto" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;" aria-labelledby="exampleModalToggleLabel">
+                                <div id="modal_abastecer_producto" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;" aria-labelledby="exampleModalToggleLabel">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -101,43 +83,101 @@ $row = $resultado->fetch_assoc();
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
                                 </div><!-- /.modal -->
+                                
+                                <div id="modal_historial_producto" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;" aria-labelledby="exampleModalToggleLabel">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" id="historial_producto">
+                                
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
 
+                                <div id="modal_ver_imagen_producto" class="modal fade" style="background-color: transparent;" >
+                                    <div class="modal-dialog modal-lg" style="background-color: transparent;">
+                                        <div class="modal-content" style="background-color: transparent;">
+                                            <div class="modal-body text-center"  id="ver_imagen_producto" style="background-color: transparent;">
+                                                
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                                <div id="modal_subir_imagen" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;" aria-labelledby="exampleModalToggleLabel">
+                                    <div class="modal-dialog" >
+                                        <div class="modal-content" >
+                                            <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    <h3 class="modal-title" id="myModalLabel">Subir Imagen</h3>
+                                                </div>
+                                                <div class="modal-body text-center"  id="subir_imagen" >
+                                                    
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" id="btn_upload_imagen" class="btn btn-purple waves-effect" data-dismiss="modal">
+                                                        Guardar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
                             </div>
                             <!-- end col-12 -->
                         </div>
                         <!-- end row -->
-
                         <!--====  End of Contenido Principal  ====-->
-
                     </div> <!-- end container-fluid -->
-
                 </div> <!-- end content -->
-
                 <!-- Footer Start -->
                 <?php include 'assets/inc/footer.php'; ?>
-                
-
                 <!-- end Footer -->
-
             </div>
-
             <!-- ============================================================== -->
             <!-- End Page content -->
             <!-- ============================================================== -->
-
         </div>
         <!-- END wrapper -->
-
         <!-- Libs Start -->
         <?php include 'assets/inc/librerias.php'; ?>
         <!-- end Libs -->
-        
         <script>
+            $(document).on("click", ".btnAbastecerProducto", function() {
+                cadena = "prod_id=" + $(this).closest('tr').find('td:eq(0)').text();
+                //alert(cadena); return false;
+                $.ajax({
+                    type: "POST",
+                    url: "assets/inc/update_producto_id.php",
+                    data: cadena,
+                    success: function(response) {
+                            if(response) {
+                                $('#abastecer_producto').load('modal_abastecer_producto.php');
+                                $('#modal_abastecer_producto').modal('show');
+                                $('#modal_abastecer_producto').on('shown.bs.modal',function(){
+                                    $('#cantidad_abastecer').trigger('focus');
+                                });
+                            }
+                        }
+                });
+            });
+            $(document).on("click", ".btnhistorialProducto", function() {
+                cadena = "prod_id=" + $(this).closest('tr').find('td:eq(0)').text();
+                //alert(cadena); return false;
+                $.ajax({
+                    type: "POST",
+                    url: "assets/inc/update_producto_id.php",
+                    data: cadena,
+                    success: function(response) {
+                            if(response) {
+                                $('#historial_producto').load('tabla_historial_producto.php');
+                                $('#modal_historial_producto').modal('show');
+                            }
+                        }
+                });
+            });
             //EVENTO DE PRECIO UNITARIO
             $("#prod_precio_compra").keyup(function() {
                 var cantidad = document.getElementById("prod_stock").value;
                 var precioCom = document.getElementById("prod_precio_compra").value;
-                var precioUni = parseFloat(precioCom / cantidad);
+                var precioUni = parseFloat(precioCom / cantidad).toFixed(2);
                 document.getElementById("prod_precio_unitario").value = precioUni;
                 console.log(precioUni);
             });
@@ -145,18 +185,16 @@ $row = $resultado->fetch_assoc();
             $("#prod_precio_compra_update").on("keyup change",function() {
                 var cantidad = document.getElementById("prod_stock_update").value;
                 var precioCom = document.getElementById("prod_precio_compra_update").value;
-                var precioUni = parseFloat(precioCom / cantidad);
+                var precioUni = parseFloat(precioCom / cantidad).toFixed(2);
                 document.getElementById("prod_precio_unitario_update").value = precioUni;
                 console.log(precioUni);
             }).keyup();
-            //EVENTO DE PRECIO UNITARIO ABASTECER
-            $("#precio_compra_abastecer").keyup(function() {
-                var cantidad = document.getElementById("cantidad_comprada_abastecer").value;
-                var precioCom = document.getElementById("precio_compra_abastecer").value;
-                var precioUni = parseFloat(precioCom / cantidad);
-                document.getElementById("unitario_abastecer").value = precioUni;
-                console.log(precioUni);
-            });
+            function cantidad(cadena1, cadena2, cadena3) {
+                var cantidad = document.getElementById(cadena1).value;
+                var precioCom = document.getElementById(cadena2).value;
+                var precioUni = parseFloat(precioCom / cantidad).toFixed(2);
+                document.getElementById(cadena3).value = precioUni;
+            }
             function DesactivarProducto(datos) {
                 vector = datos.split('||');
                 Swal.fire({
@@ -332,27 +370,10 @@ $row = $resultado->fetch_assoc();
                         }
                     });
                 });
-                $(document).on("click", ".btnAbastecerProducto", function() {
-                    cadena = "prod_id=" + $(this).closest('tr').find('td:eq(0)').text();
-                    //alert(cadena); return false;
-                    $.ajax({
-                        type: "POST",
-                        url: "assets/inc/update_producto_id.php",
-                        data: cadena,
-                        success: function(response) {
-                                if(response) {
-                                    $('#abastecer_producto').load('modal_abastecer_producto.php');
-                                    $('#modal_abastecer_producto').modal('show');
-                                    $('#modal_abastecer_producto').on('shown.bs.modal',function(){
-                                        $('#cantidad_comprada_abastecer').trigger('focus');
-                                    });
-                                }
-                            }
-                    });
-                });
+                
                 $('#btn_abastecer_producto').click(function(){
                     var datos = $('#formulario_abastecer_producto').serialize();
-                    alert(datos); return false;
+                    //alert(datos); return false;
                     $.ajax({
                         type:"POST",
                         url:"assets/inc/create_compra.php",
@@ -408,6 +429,106 @@ $row = $resultado->fetch_assoc();
                             $(".ver").attr("src", rutaImagen);
                         })
                     }
+                });
+                $(".img_producto").change(function(){
+                    var imagen = this.files[0];
+                    if (imagen["type"] != "image/png") {
+                        $(".img_producto").val("");
+                        Swal.fire({
+                            title: "Error al subir la imagen",
+                            text: "¡La imagen debe estar en formato PNG!",
+                            type: "error",
+                            confirmButtonText: "¡Cerrar!"
+                        });
+                    }else if (imagen["size"] > 2000000) {
+                        $(".img_producto").val("");
+                        Swal.fire({
+                            title: "Error al subir la imagen",
+                            text: "¡La imagen no debe pesar mas de 2 MB!",
+                            type: "error",
+                            confirmButtonText: "¡Cerrar!"
+                        });
+                    }else{
+                        var datosImagen = new FileReader;
+                        datosImagen.readAsDataURL(imagen);
+                        $(datosImagen).on("load",function(event){
+                            var rutaImagen = event.target.result;
+                            $(".ver_img").attr("src", rutaImagen);
+                        })
+                    }
+                });
+                $('#btn_upload_imagen').click(function(){
+                    var file_data = $("#img_producto").prop("files")[0];
+                    var datos = new FormData();
+                    datos.append("img_producto", file_data);
+                    datos.append("prod_id", $("#prodid").val());
+                    for (var value of datos.values()) {
+                        console.log(value);
+                    }
+                    //alert(datos); return false;
+                    $.ajax({
+                        cahe: false,
+                        contentType: false,
+                        data: datos,
+                        dataType: 'JSON',
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        method:"POST",
+                        url:"assets/inc/update_imagen_producto.php",
+                        success:function(response){
+                            if (response == 1) {
+                                $('#tabla_producto').load('tabla_producto.php');
+                                $('#modal_subir_imagen').on('hidden.bs.modal', function (){
+                                    $(this).find('#formulario_imagen_producto')[0].reset();
+                                });
+                                Swal.fire({
+                                    type: 'success',
+                                    title: 'Imagen Agregada Exitosamente.',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                            } else {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: 'Se ha Producido un Error.',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                            }
+                        }
+                    });
+                });
+                $(document).on("click", ".btnVerImagen", function() {
+                    cadena = "prod_id=" + $(this).closest('tr').find('td:eq(0)').text();
+                    //alert(cadena); return false;
+                    //https://jsonformatter.org/jsbeautifier
+                    $.ajax({
+                        type: "POST",
+                        url: "assets/inc/update_producto_id.php",
+                        data: cadena,
+                        success: function(r) {
+                            if(r) {
+                                $('#ver_imagen_producto').load('modal_ver_imagen_producto.php');
+                                $('#modal_ver_imagen_producto').modal('show');
+                            }
+                        }
+                    });
+                });
+                $(document).on("click", ".btnAgregarImagen", function() {
+                    cadena = "prod_id=" + $(this).closest('tr').find('td:eq(0)').text();
+                    //alert(cadena); return false;
+                    //https://jsonformatter.org/jsbeautifier
+                    $.ajax({
+                        type: "POST",
+                        url: "assets/inc/update_producto_id.php",
+                        data: cadena,
+                        success: function(r) {
+                            if(r) {
+                                $('#subir_imagen').load('modal_upload_imagen.php');
+                                $('#modal_subir_imagen').modal('show');
+                            }
+                        }
+                    });
                 });
             });
             

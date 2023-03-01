@@ -492,7 +492,6 @@
             ===================================================================================-*/
                 $('#prod_cantidad').on('keyup change',function() {
                     var cantidad = parseFloat($(this).val());
-
                     pc = parseFloat($('#prod_precio_unitario').val());
                     pv = parseFloat($('#prod_precio_venta').val());
                     descuento = parseFloat($('#prod_descuento').val());
@@ -508,7 +507,6 @@
 
                 $('#prod_descuento').on('keyup change',function(){
                     var descuento = parseFloat($(this).val());
-                    
                     //porcentaje del valor total para precios de ventas
                     pc = parseFloat($('#prod_precio_unitario').val());
                     pv = parseFloat($('#prod_precio_venta').val());

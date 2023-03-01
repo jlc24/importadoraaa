@@ -95,14 +95,14 @@
                             <div class="col-sm-1"></div>
                             <label class="col-md-3 col-form-label">Cantidad:</label>
                             <div class="col-md-6">
-                                <input type="number" min="0" id="prod_stock" name="prod_stock" class="form-control form-control-sm" value="0" parsley-trigger="change" require>
+                                <input type="number" min="0" id="prod_stock" name="prod_stock" class="form-control form-control-sm" value="0" parsley-trigger="change" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-1"></div>
                             <label class="col-md-3 col-form-label">Precio de Compra (Bs):</label>
                             <div class="col-md-6">
-                                <input type="number" min="0" id="prod_precio_compra" name="prod_precio_compra" class="form-control form-control-sm" value="0" require>
+                                <input type="number" min="0" id="prod_precio_compra" name="prod_precio_compra" class="form-control form-control-sm" value="0" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -116,7 +116,7 @@
                             <div class="col-sm-1"></div>
                             <label class="col-md-3 col-form-label">Precio de Venta (Bs):</label>
                             <div class="col-md-6">
-                                <input type="number" min="0" id="prod_precio_venta" name="prod_precio_venta" class="form-control form-control-sm" value="0" require>
+                                <input type="number" min="0" id="prod_precio_venta" name="prod_precio_venta" class="form-control form-control-sm" value="0" required>
                             </div>
                         </div>
                         <div class="form-group row">
