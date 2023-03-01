@@ -137,7 +137,7 @@ $row = $resultado->fetch_assoc();
                             <div class="card-box widget-box-two widget-two-custom ">
                                 <div class="media">
                                     <div class="avatar-lg bg-icon rounded-circle align-self-center">
-                                        <img class="avatar-md" src="assets/images/icons/cart.svg" title="cart.svg">
+                                        <img class="avatar-md" src="assets/images/icons/provider.svg" title="provider.svg">
                                     </div>
                                     <div class="wigdet-two-content media-body">
                                         <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Productos</p>
@@ -160,7 +160,6 @@ $row = $resultado->fetch_assoc();
                             <div class="box box-solid bg-teal-gradient">
                                 <div class="box-header">
                                     <i class="fa fa-th"></i>
-                                    <h3 class="box-title">Gráfico de Ventas</h3>
                                 </div>
                                 <div class="box-body border-radius-none nuevoGraficoVentas">
                                     <div class="chart" id="line-chart-ventas" style="height: 250px;">

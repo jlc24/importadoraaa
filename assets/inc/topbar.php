@@ -1,4 +1,4 @@
-            <div class="navbar-custom">
+            <div class="navbar-custom" style="background-color: #009BDB;">
                 <ul class="list-unstyled topnav-menu float-right mb-0">
 
                     <li class="dropdown notification-list">
@@ -79,7 +79,7 @@
                 <div class="logo-box">
                     <a href="index.php" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="assets/images/logo-light.png" alt="" height="25">
+                            <img src="assets/images/logo-light.png" alt="" height="39">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
                         </span>
                         <span class="logo-sm">
@@ -95,21 +95,5 @@
                             <i class="fe-menu"></i>
                         </button>
                     </li>
-
-                    <li class="d-none d-sm-block">
-                            <form class="app-search">
-                                <div class="app-search-box">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Buscar...">
-                                        <div class="input-group-append">
-                                            <button class="btn" type="submit">
-                                                <i class="fe-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </li>
-
                 </ul>
             </div>

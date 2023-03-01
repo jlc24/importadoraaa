@@ -2,7 +2,8 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <?php echo date("Y"); ?> &copy; Importadora
+                                Copyright &copy; <?php echo date("Y"); ?> Smart World Import Export <br>
+                                Todos los Derechos Reservados
                             </div>
                         </div>
                     </div>
