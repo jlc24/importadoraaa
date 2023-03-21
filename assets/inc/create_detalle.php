@@ -2,10 +2,17 @@
 	/*Datos de conexion a la base de datos*/
 	include('conexion.php');
 	//OBTENEMOS EL ULTIMO NUMERO DE LAS FACTURAS EXISTENTES
-	$sql="SELECT MAX(fac_id) FROM factura";
+	$sql="SELECT MAX(fac_id) FROM factura;";
 	$resultado = mysqli_query($conexion,$sql);
 	$fila = mysqli_fetch_row($resultado);
 	$fac = (int)$fila[0];
+
+	$adm = $_POST['admnid'];
+	$sql1="SELECT MAX(caja_id) FROM caja WHERE caja_estado = 1 AND adm_id = '".$adm."';";
+	$resultado1 = mysqli_query($conexion,$sql1);
+	$fila1 = mysqli_fetch_row($resultado1);
+	$caja = (int)$fila1[0];
+
 	$pro = $_POST['prod_id'];
 	$nom = $_POST['prod_nombre'];
 	$com = $_POST['prod_precio_unitario'];
@@ -28,9 +35,9 @@
 	$act1 = (int)$num + (int)$can;
 
 	/*CONSULTA PARA REGISTRAR EL DETALLE DE LA FACTURA*/
-	$sql="INSERT INTO detalle_factura ( det_id, fac_id, prod_id, det_producto, det_cantidad, det_precio_unitario, det_subtotal, det_utilidad, det_fecha, det_codigo )
+	$sql="INSERT INTO detalle_factura ( det_id, caja_id, fac_id, prod_id, det_producto, det_cantidad, det_precio_unitario, det_subtotal, det_utilidad, det_fecha, det_codigo )
 			VALUES
-				( NULL ,'$fac','$pro','$nom','$can','$ven', '$tot', '$uti', '$fec', '$cod')";
+				( NULL ,'$caja','$fac','$pro','$nom','$can','$ven', '$tot', '$uti', '$fec', '$cod')";
 	/*SI PODEMOS REGISTRAR EL DETALLE ENTONCES ACTUALIZAMOS EL STOCK*/
 	if(mysqli_query($conexion,$sql)){
 		/*ACTUALIZAMOS EL STOCK, QUE RECOGEMOS DE LA VENTANA MODAL*/

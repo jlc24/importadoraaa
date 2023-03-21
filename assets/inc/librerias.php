@@ -25,6 +25,8 @@
 
         <!-- JQuery UI <script src="assets/libs/jquery/jquery-3.4.1.min.js"></script>-->
         <script src="assets/libs/jquery-ui/jquery-ui.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.0/Chart.bundle.min.js"></script>
         
         <!--Form Wizard-->
         <script src="assets/libs/stepy/jquery.stepy.js"></script>

@@ -19,6 +19,7 @@
                         <div class="form-group col-sm-8">
                             <label class="col-form-label">Nombre Comercial</label>
                             <input type="hidden" class="form-control" readonly="" id="prod_id" name="prod_id">
+                            <input type="hidden" class="form-control" readonly="" id="admnid" name="admnid" value="<?php echo $adm_id; ?>">
                             <input type="text" class="form-control" readonly="" id="prod_nombre" name="prod_nombre" value="" style="background-color:#EBF9D6;">
                         </div>
                         <div class="form-group col-sm-2">

@@ -42,7 +42,16 @@
 <!--=================================================
 =            CONEXION A LA BASE DE DATOS            =
 ==================================================-->
-<?php include('assets/inc/conexion.php'); ?>
+<?php include('assets/inc/conexion.php'); 
+    session_start();
+    if (!isset($_SESSION['adm_id'])) {
+        header('Location: login.php');
+    }
+    $adm_id = $_SESSION['adm_id'];
+    $sql = "SELECT * FROM administrador WHERE adm_id = '$adm_id'";
+    $resultado = $conexion->query($sql);
+    $row = $resultado->fetch_assoc();
+?>
 
 <table id="cliente" class="table mb-0 table-sm table-striped table-bordered dt-responsive" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
     <thead style="background-color: #DBEDC8;" align="center">
@@ -67,14 +76,17 @@
                 <td align="center"><a href="https://api.whatsapp.com/send?phone=<?php echo $registro["cli_celular"]; ?>&text=Hola,%20buenos%20dias" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="font-size: 2em;"></i></a></td>
                 <td align="center">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        
+                        <?php
+                        if ($row['adm_rol'] == 'admin') { ?>
                             <a class="btn btn-outline-primary" type="button" href="#" data-toggle="modal" data-target="#modal_actualizar_cliente" onclick="EditarCliente('<?php echo $datos; ?>')" title="Editar">
                                 <i class="far fa-edit"></i>
                             </a>
                             <a class="btn btn-outline-danger" type="button" href="#" title="Eliminar" onclick="EliminarCliente('<?php echo $registro["cli_id"] . "||" . $registro["cli_nombre"]; ?>')">
                                 <i class="far fa-trash-alt"></i>
                             </a>
-                        
+                     <?php    
+                        }
+                        ?>
                     </div>
                 </td>
             </tr>

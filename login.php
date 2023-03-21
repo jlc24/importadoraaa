@@ -10,22 +10,26 @@ if (isset($_POST['ingresar'])) {
 	$usuario = mysqli_real_escape_string($conexion,$_POST['user']);
 	$password = mysqli_real_escape_string($conexion,$_POST['pass']);
 	$pass_sha1 =  sha1($password);
-	$sql = "SELECT adm_id, adm_rol FROM administrador WHERE adm_usuario = '$usuario' AND adm_pass = '$pass_sha1'";
+	$sql = "SELECT * FROM administrador WHERE adm_usuario = '$usuario' AND adm_pass = '$pass_sha1'";
 	$resultado = $conexion->query($sql);
 	$rows =  $resultado->num_rows;
 	if ($rows > 0) {
 		$row = $resultado->fetch_assoc();
 		$_SESSION['adm_id'] = $row['adm_id'];
         $_SESSION['adm_rol'] = $row['adm_rol'];
-        if ($row['adm_rol'] == 'admin') {
+        if ($row['adm_estado'] == '1') {
             header('Location: index.php');
         } else {
-            header('Location: pos_ventas.php');
+            session_destroy();
+            echo "<script>
+		    alert('Usuario INHABILITADO, contacte al administrador');
+		    windows.location.href = 'index.php';
+		    </script>";
         }
 	} else {
 		echo "<script>
 		alert('Usuario o Password Incorrecto');
-		windows.location = 'index.php';
+		windows.location.href = 'index.php';
 		</script>";
 	}
 }
@@ -46,7 +50,7 @@ if (isset($_POST['ingresar'])) {
                             <div class="account-box">
                                 <div class="account-logo-box">
                                     <div class="text-center">
-                                        <img src="assets/images/logo-dark.png" alt="" height="30">
+                                        <img src="assets/images/logo-dark.png" alt="" height="50">
                                     </div>
                                     <h5 class="text-uppercase mb-1 mt-4">INICIA SESIÓN</h5>
                                     <p class="mb-0">Inicie sesión en su cuenta de administrador</p>
@@ -72,7 +76,7 @@ if (isset($_POST['ingresar'])) {
                                         </div>
                                         <div class="form-group row text-center mt-2">
                                             <div class="col-12">
-                                                <button class="btn btn-md btn-block btn-purple waves-effect waves-light" type="submit" name="ingresar">Inicia sesión</button>
+                                                <button class="btn btn-md btn-block btn-purple waves-effect waves-light" type="submit" name="ingresar" id="ingresar">Inicia sesión</button>
                                             </div>
                                         </div>
                                     </form>
@@ -93,7 +97,7 @@ if (isset($_POST['ingresar'])) {
                                     </div>
                                     <div class="row mt-4 pt-2">
                                         <div class="col-sm-12 text-center">
-                                            <p class="text-muted mb-0">¿No tienes una cuenta? <a href="register.php" class="text-dark ml-1"><b>Regístrate</b></a></p>
+                                            <p class="text-muted mb-0">¿No tienes una cuenta? <a href="#" class="text-dark ml-1"><b>Regístrate</b></a></p>
                                         </div>
                                     </div>
 
@@ -107,6 +111,8 @@ if (isset($_POST['ingresar'])) {
     </div>
     <script src="assets/js/vendor.min.js"></script>
     <script src="assets/js/app.min.js"></script>
+    <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="assets/libs/jquery-ui/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function(){
             $("#user").focus();

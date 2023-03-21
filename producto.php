@@ -7,7 +7,7 @@ if (!isset($_SESSION['adm_id'])) {
 }
 
 $adm_id = $_SESSION['adm_id'];
-$sql = "SELECT adm_id, adm_nombre FROM administrador WHERE adm_id = '$adm_id'";
+$sql = "SELECT * FROM administrador WHERE adm_id = '$adm_id'";
 $resultado = $conexion->query($sql);
 $row = $resultado->fetch_assoc();
 ?>
@@ -200,7 +200,7 @@ $row = $resultado->fetch_assoc();
                 Swal.fire({
                     title: 'Se deshabilitara al Producto "' + vector[1] + '"',
                     text: "No podrás vender este producto!",
-                    type: 'warning',
+                    type: 'info',
                     showCancelButton: true,
                     cancelButtonText: 'Cancelar',
                     confirmButtonColor: '#3085d6',
@@ -208,10 +208,10 @@ $row = $resultado->fetch_assoc();
                     confirmButtonText: 'Si, deshabilitar!'
                 }).then((result) => {
                     if(result.value) {
-                        cadena = "id=" + vector[0];
+                        cadena = "prod_id=" + vector[0];
                         //alert(cadena);
                         $.ajax({
-                            url: "assets/inc/desactivar_producto.php",
+                            url: "assets/inc/desactivar_estado.php",
                             data: cadena,
                             type: "POST",
                             success: function(response) {
@@ -241,7 +241,7 @@ $row = $resultado->fetch_assoc();
                 Swal.fire({
                     title: 'Se Habilitara el Producto "' + vector[1] + '"',
                     text: "Podras vender este producto!",
-                    type: 'success',
+                    type: 'info',
                     showCancelButton: true,
                     cancelButtonText: 'Cancelar',
                     confirmButtonColor: '#3085d6',
@@ -249,10 +249,10 @@ $row = $resultado->fetch_assoc();
                     confirmButtonText: 'Si, habilitar!'
                 }).then((result) => {
                     if(result.value) {
-                        cadena = "id=" + vector[0];
+                        cadena = "prod_id=" + vector[0];
                         //alert(cadena);
                         $.ajax({
-                            url: "assets/inc/activar_producto.php",
+                            url: "assets/inc/activar_estado.php",
                             data: cadena,
                             type: "POST",
                             success: function(response) {
@@ -531,7 +531,6 @@ $row = $resultado->fetch_assoc();
                     });
                 });
             });
-            
         </script>
     </body>
 </html>

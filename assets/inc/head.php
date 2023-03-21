@@ -20,7 +20,8 @@
 
         <!-- Sweet Alert-->
         <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" /> 
-
+        
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.0/Chart.min.css" rel="stylesheet" type="text/css" /> 
         <!-- JQuery UI THEME pepper-grinder -->
         <link href="assets/libs/jquery-ui/themes/redmond/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 

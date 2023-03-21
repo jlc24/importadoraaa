@@ -45,22 +45,19 @@
                             </div>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a href="profile.php" class="dropdown-item notify-item">
                                 <i class="fe-user"></i>
                                 <span>Perfil</span>
                             </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-settings"></i>
-                                <span>Configuraciones</span>
-                            </a>
-
-                            <!-- item
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="fe-lock"></i>
-                                <span>Bloquear pantalla</span>
-                            </a>-->
+                            <?php
+                                if ($row['adm_rol'] == 'admin') { ?>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                        <i class="fe-settings"></i>
+                                        <span>Configuraciones</span>
+                                    </a>
+                                <?php
+                                } ?>
 
                             <div class="dropdown-divider"></div>
 

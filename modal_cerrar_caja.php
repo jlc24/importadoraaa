@@ -26,16 +26,22 @@
                                                                 <input type="text" min="0" id="caja_fecha_hora" name="caja_fecha_hora" class="form-control form-control-sm" value="<?php echo date('d-m-Y h:i:s a', time());?>" readonly>
                                                             </div>
                                                         </div>
+                                                        <?php
+                                                        $consulta = "SELECT SUM(det_subtotal) AS total_caja FROM detalle_factura WHERE det_fecha = '".date('Y-m-d')."' AND caja_id = (SELECT MAX(caja_id) FROM caja WHERE caja_estado = 1 AND adm_id = '".$adm_id."');"; 
+                                                        $fila = mysqli_fetch_assoc(mysqli_query($conexion,$consulta)); ?>
                                                         <div class="form-group row">
                                                             <label class="col-md-5 col-form-label" for="simpleinput">Monto de Cierre (Bs):</label>
                                                             <div class="col-md-7">
-                                                                <input type="number" id="caja_monto_final" name="caja_monto_final" class="form-control form-control-sm" value="">
+                                                                <input type="number" id="caja_monto_final" name="caja_monto_final" class="form-control form-control-sm" value="<?php echo (isset($fila['total_caja']) ? $fila['total_caja'] : '0' ); ?>" readonly>
                                                             </div>
                                                         </div>
+                                                        <?php
+                                                        $consulta = "SELECT caja_monto_inicial FROM caja WHERE caja_id = (SELECT MAX(caja_id) FROM caja WHERE caja_estado = 1 AND adm_id = '".$adm_id."')"; 
+                                                        $fila = mysqli_fetch_assoc(mysqli_query($conexion,$consulta)); ?>
                                                         <div class="form-group row">
                                                             <label class="col-md-5 col-form-label" for="simpleinput">Cambio (Bs):</label>
                                                             <div class="col-md-7">
-                                                                <input type="number" id="caja_cambio" name="caja_cambio" class="form-control form-control-sm" value="">
+                                                                <input type="number" id="caja_cambio" name="caja_cambio" class="form-control form-control-sm" value="<?php echo isset($fila['caja_monto_inicial']) ? $fila['caja_monto_inicial'] : '0'; ?>">
                                                             </div>
                                                         </div>
                                                     </form>

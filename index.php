@@ -6,9 +6,9 @@ if (!isset($_SESSION['adm_id'])) {
 }
 
 $adm_id = $_SESSION['adm_id'];
-$sql = "SELECT adm_id, adm_nombre FROM administrador WHERE adm_id = '$adm_id'";
-$resultado = $conexion->query($sql);
-$row = $resultado->fetch_assoc();
+$sql = "SELECT * FROM administrador WHERE adm_id = '$adm_id'";
+$res = mysqli_query($conexion,$sql);
+$row = mysqli_fetch_assoc($res);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +19,8 @@ $row = $resultado->fetch_assoc();
 
 <body>
     <div id="wrapper">
-        <?php include 'assets/inc/topbar.php'; ?>
         <?php include 'assets/inc/left_sidebar.php'; ?>
+        <?php include 'assets/inc/topbar.php'; ?>
         <div class="content-page">
             <div class="content">
                 <div class="container-fluid">
@@ -31,7 +31,7 @@ $row = $resultado->fetch_assoc();
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <div id="modal_detalle_factura" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -73,23 +73,113 @@ $row = $resultado->fetch_assoc();
                                         <img class="avatar-md" src="assets/images/icons/cash-register.svg" title="cash-register.svg">
                                     </div>
                                     <div class="wigdet-two-content media-body">
-                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ingresos Bs.</p>
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ingresos Ayer</p>
                                         <h3 class="font-weight-medium my-2">
                                             <span data-plugin="counterup">
                                                 <?php //include('assets/inc/conexion.php');
-                                                $filas = mysqli_fetch_row(mysqli_query($conexion, "SELECT SUM(fac_total) FROM factura"));
-                                                if ($filas != 'NULL') {
+                                                $hoy = date('Y-m-d');
+                                                $ayer = date('Y-m-d', strtotime($hoy."- 1 days"));
+                                                $filas = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT SUM(fac_total) AS total FROM factura WHERE fac_fecha_hora LIKE '%".$ayer."%';"));
+                                                if (empty($filas['total'])) {
                                                     echo "0";
                                                 }else{
-                                                    echo number_format($filas[0]);
+                                                    echo number_format($filas['total'], 0);
                                                 } ?>
                                             </span>
                                         </h3>
-                                        <p class="m-0">Ene - Dic <?php echo date("Y"); ?></p>
+                                        <p class="m-0"><?php echo $ayer; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box widget-box-two widget-two-custom ">
+                                <div class="media">
+                                    <div class="avatar-lg bg-icon rounded-circle align-self-center">
+                                        <img class="avatar-md" src="assets/images/icons/cart.svg" title="cart.svg">
+                                    </div>
+                                    <div class="wigdet-two-content media-body">
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ventas Ayer</p>
+                                        <h3 class="font-weight-medium my-2">
+                                            <span data-plugin="counterup">
+                                                <?php 
+                                                $hoy = date('Y-m-d');
+                                                $ayer = date('Y-m-d', strtotime($hoy."- 1 days"));
+                                                $sql = "SELECT SUM(det_cantidad) FROM detalle_factura WHERE det_fecha LIKE '%".$ayer."%';";
+                                                $resultado = mysqli_query($conexion, $sql);
+                                                $filas = mysqli_fetch_row($resultado);
+                                                if ($filas[0] == '') {
+                                                    echo 0;
+                                                }else {
+                                                    echo number_format($filas[0]); 
+                                                }?>
+                                            </span>
+                                        </h3>
+                                        <p class="m-0"><?php echo $ayer; ?></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-4 col-sm-6">
+                            <div class="card-box widget-box-two widget-two-custom">
+                                <div class="datepicker">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card-box widget-box-two widget-two-custom">
+                                <div class="media">
+                                    <div class="avatar-lg bg-icon rounded-circle align-self-center">
+                                        <img class="avatar-md" src="assets/images/icons/cash-register.svg" title="cash-register.svg">
+                                    </div>
+                                    <div class="wigdet-two-content media-body">
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ingresos Hoy</p>
+                                        <h3 class="font-weight-medium my-2">
+                                            <span data-plugin="counterup">
+                                                <?php //include('assets/inc/conexion.php');
+                                                $hoy = date('Y-m-d');
+                                                $ayer = date('Y-m-d', strtotime($hoy."- 1 days"));
+                                                $filas = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT SUM(det_subtotal) AS total FROM detalle_factura WHERE det_fecha = '".$hoy."';"));
+                                                if (empty($filas['total'])) {
+                                                    echo "0";
+                                                }else{
+                                                    echo number_format($filas['total'], 0);
+                                                } ?>
+                                            </span>
+                                        </h3>
+                                        <p class="m-0"><?php echo $hoy; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-box widget-box-two widget-two-custom ">
+                                <div class="media">
+                                    <div class="avatar-lg bg-icon rounded-circle align-self-center">
+                                        <img class="avatar-md" src="assets/images/icons/cart.svg" title="cart.svg">
+                                    </div>
+                                    <div class="wigdet-two-content media-body">
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ventas Hoy</p>
+                                        <h3 class="font-weight-medium my-2">
+                                            <span data-plugin="counterup">
+                                                <?php 
+                                                $hoy = date('Y-m-d');
+                                                $ayer = date('Y-m-d', strtotime($hoy."- 1 days"));
+                                                $sql = "SELECT SUM(det_cantidad) FROM detalle_factura WHERE det_fecha = '".$hoy."';";
+                                                $resultado = mysqli_query($conexion, $sql);
+                                                $filas = mysqli_fetch_row($resultado);
+                                                if ($filas[0] == '') {
+                                                    echo 0;
+                                                }else {
+                                                    echo number_format($filas[0]); 
+                                                } ?>
+                                            </span>
+                                        </h3>
+                                        <p class="m-0"><?php echo $hoy; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
                         <div class="col-xl-3 col-sm-6">
                             <div class="card-box widget-box-two widget-two-custom ">
                                 <div class="media">
@@ -113,26 +203,65 @@ $row = $resultado->fetch_assoc();
                             </div>
                         </div>
                         <div class="col-xl-3 col-sm-6">
-                            <div class="card-box widget-box-two widget-two-custom ">
+                            <div class="card-box widget-box-two widget-two-custom">
+                                <div class="media">
+                                    <div class="avatar-lg bg-icon rounded-circle align-self-center">
+                                        <img class="avatar-md" src="assets/images/icons/cash-register.svg" title="cash-register.svg">
+                                    </div>
+                                    <div class="wigdet-two-content media-body">
+                                        <?php
+                                            function fechaletra($fecha){
+                                                $day = date('d',strtotime($fecha));
+                                                $month = date('m',strtotime($fecha));
+                                                $year = date('Y',strtotime($fecha));
+                                                $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                                                $letra = $meses[$month - 1];
+                                                return $letra;
+                                            }
+                                        ?>
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ingresos Mes</p>
+                                        <h3 class="font-weight-medium my-2">
+                                            <span data-plugin="counterup">
+                                                <?php //include('assets/inc/conexion.php');
+                                                $hoy = date('Y-m-d');
+                                                
+                                                $mes = date('Y-m');
+                                                $filas = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT SUM(fac_total) AS total FROM factura WHERE fac_fecha_hora LIKE '%".$mes."%';"));
+                                                if (empty($filas['total'])) {
+                                                    echo "0";
+                                                }else{
+                                                    echo number_format($filas['total'], 0);
+                                                } ?>
+                                            </span>
+                                        </h3>
+                                        <p class="m-0"><?php echo fechaletra(date('Y-m-d')); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6">
+                            <div class="card-box widget-box-two widget-two-custom">
                                 <div class="media">
                                     <div class="avatar-lg bg-icon rounded-circle align-self-center">
                                         <img class="avatar-md" src="assets/images/icons/cart.svg" title="cart.svg">
                                     </div>
                                     <div class="wigdet-two-content media-body">
-                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ventas</p>
+                                        <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Ventas Mes</p>
                                         <h3 class="font-weight-medium my-2">
                                             <span data-plugin="counterup">
-                                                <?php $sql = "SELECT COUNT(*) FROM factura";
+                                                <?php
+                                                $sql = "SELECT SUM(det_cantidad) FROM detalle_factura WHERE det_fecha LIKE '%".$mes."%';";
                                                 $resultado = mysqli_query($conexion, $sql);
                                                 $filas = mysqli_fetch_row($resultado);
-                                                echo number_format($filas[0]); ?>
+                                                echo number_format($filas[0]);?>
                                             </span>
                                         </h3>
-                                        <p class="m-0">Ene - Dic <?php echo date("Y"); ?></p>
+                                        <p class="m-0"><?php echo fechaletra(date('Y-m-d')); ?></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-xl-3 col-sm-6">
                             <div class="card-box widget-box-two widget-two-custom ">
                                 <div class="media">
@@ -157,13 +286,13 @@ $row = $resultado->fetch_assoc();
                     </div>
                     <div class="row">
                         <div class="col-xl-12 col-sm-6">
-                            <div class="box box-solid bg-teal-gradient">
+                            <div class="card-box box-solid bg-teal-gradient">
                                 <div class="box-header">
                                     <i class="fa fa-th"></i>
                                 </div>
                                 <div class="box-body border-radius-none nuevoGraficoVentas">
-                                    <div class="chart" id="line-chart-ventas" style="height: 250px;">
-                                        
+                                    <div class="chart" id="line-chart-ventas" >
+                                        <canvas id="myChart"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -176,6 +305,7 @@ $row = $resultado->fetch_assoc();
     </div>
     <?php include 'assets/inc/librerias.php'; ?>
     <script type="text/javascript">
+        $(".datepicker").datepicker();
         $(document).ready(function() {
             $('#vencimientoResumen').dataTable({
                 responsive: true,
@@ -327,6 +457,69 @@ $row = $resultado->fetch_assoc();
                 .responsive.recalc();
             });
         });
+
+        //----------------------------------------------------------------------------------
+        /*
+        let today = new Date();
+        let day = today.getDate();
+        let month = today.getMonth()+1;
+        let year = today.getFullYear();
+        let dias = [];
+        let valor = [];
+        let diasMes = new Date(year,month, 0).getDate();
+        
+        for (let i = 0; i < day ; i++) {
+            let hoy = "hoy="+i;
+            $.ajax({
+                url: 'assets/inc/reporte_ventas.php',
+                type: 'POST',
+                data: hoy
+            }).done(function(result){
+                var datos = JSON.parse(result);
+                valor.push(datos.total);
+            })
+            dias.push(i+1);
+        }
+        console.log(valor);
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dias,
+                datasets: [{
+                    label: 'Ventas Marzo',
+                    data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });*/
+
     </script>
     
 </body>

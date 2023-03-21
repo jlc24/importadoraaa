@@ -29,10 +29,14 @@
                                                         <div class="form-group row">
                                                             <label class="col-md-5 col-form-label" for="simpleinput">Monto de Apertura (Bs):</label>
                                                             <div class="col-md-7">
-                                                                <input type="number" id="caja_monto_inicial" name="caja_monto_inicial" class="form-control form-control-sm" 
-                                                                value="<?php $consulta = "SELECT caja_cambio FROM caja WHERE caja_id = (SELECT MAX(caja_id) FROM caja)"; 
-                                                                $fila = mysqli_fetch_row(mysqli_query($conexion,$consulta));
-                                                                echo $fila[0]; ?>">
+                                                                <input type="number" min="0" id="caja_monto_inicial" name="caja_monto_inicial" class="form-control form-control-sm" 
+                                                                <?php
+                                                                $consulta = "SELECT caja_cambio FROM caja WHERE caja_id = (SELECT MAX(caja_id) FROM caja WHERE adm_id = '".$adm_id."')"; 
+                                                                $fila = mysqli_fetch_assoc(mysqli_query($conexion,$consulta));
+                                                                if (!empty($fila['caja_cambio'])) { ?>
+                                                                    value="<?php echo $fila['caja_cambio']; ?>">
+                                                                <?php
+                                                                } ?>
                                                             </div>
                                                         </div>
                                                     </form>

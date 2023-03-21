@@ -8,7 +8,7 @@ if (!isset($_SESSION['adm_id'])) {
 }
 
 $adm_id = $_SESSION['adm_id'];
-$sql = "SELECT adm_id, adm_nombre FROM administrador WHERE adm_id = '$adm_id'";
+$sql = "SELECT * FROM administrador WHERE adm_id = '$adm_id'";
 $resultado = $conexion->query($sql);
 $row = $resultado->fetch_assoc();
 ?>

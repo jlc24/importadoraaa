@@ -7,7 +7,7 @@ if (!isset($_SESSION['adm_id'])) {
 }
 
 $adm_id = $_SESSION['adm_id'];
-$sql = "SELECT adm_id, adm_nombre FROM administrador WHERE adm_id = '$adm_id'";
+$sql = "SELECT * FROM administrador WHERE adm_id = '$adm_id'";
 $resultado = $conexion->query($sql);
 $row = $resultado->fetch_assoc();
 ?>
@@ -43,10 +43,6 @@ $row = $resultado->fetch_assoc();
                             <div class="col-12">
                                 <div class="page-title-box">
                                     <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Farmacia</a></li>
-                                            <li class="breadcrumb-item active">Apertura y Cierre de Caja</li>
-                                        </ol>
                                     </div>
                                     <h4 class="page-title">
                                         <a style="color:purple;" href="#" data-toggle="modal" data-target="#modal_crear_caja" title="Registrar Apertura de Caja">
@@ -70,10 +66,12 @@ $row = $resultado->fetch_assoc();
                                 <!-- fin tabla caja -->
 
                                 <!-- Modales para Crear y Actualizar, Caja, Etc -->
-                                <?php include "modal_create_caja.php"; include "modal_cerrar_caja.php"; ?>
+                                <?php include "modal_create_caja.php"; ?>
+                                
                                 <!-- Modales para Crear y Actualizar, Cajas -->
 
                             </div>
+                            <?php include "modal_cerrar_caja.php"; ?>
                             <!-- end col-12 -->
                         </div>
                         <!-- end row -->

@@ -7,25 +7,23 @@
     }
 
     $adm_id = $_SESSION['adm_id'];
-    $sql = "SELECT adm_id, adm_nombre FROM administrador WHERE adm_id = '$adm_id'";
+    $sql = "SELECT * FROM administrador WHERE adm_id = '$adm_id'";
     $resultado = $conexion->query($sql);
     $row = $resultado->fetch_assoc();
 
     //OBTENEMOS EL ESTADO DE LA CAJA 0=CERRADO, 1=ABIERTO, DE LA ULTIMA CAJA CREADA
     //SELECT DATE(ColumnName) FROM tablename; select DATE_FORMAT(date,'%y-%m-%d') from tablename;
-    $consulta = "SELECT caja_id, DATE(caja_fecha_apertura), caja_estado FROM caja WHERE caja_id = (SELECT MAX(caja_id) FROM caja)";
+    
+    $consulta = "SELECT caja_id, DATE(caja_fecha_apertura), caja_estado FROM caja WHERE caja_id = (SELECT MAX(caja_id) FROM caja) AND adm_id = '$adm_id';";
     $resultado = mysqli_query($conexion,$consulta);
     $fila = mysqli_fetch_row($resultado);
-    //$caja_estado = (int)$fila[2];
-    //$fecha_apertura = $fila[1];
+    $caja_estado = isset($fila[2]) ? (int)$fila[2] : '0';
+    $fecha_apertura = isset($fila[1]) ? $fila[1] : '0000-00-00';
     $hoy = date('Y-m-d');
-    /*if ($caja_estado == 0) {//SI LA CAJA ESTA CERRADA
-        /*$message = "Primero debe abrir la Caja!";
-        echo "<script> alert('".$message."'); </script>";
-        sleep(5);
-        header('Location: caja.php');
-        echo "<script type='text/javascript'>alert('Oops... Primero debe abrir la Caja');location='caja.php';</script>";*/
-/*
+    if ($caja_estado == 0) {//SI LA CAJA ESTA CERRADA
+        
+        echo "<script type='text/javascript'>alert('Oops... Primero debes abrir Caja');location='caja.php';</script>";
+
         echo "<link rel='stylesheet' href='assets/css/bootstrap.min.css'>";
         echo "<link rel='stylesheet' href='assets/css/app.min.css'>";
         echo "<link rel='stylesheet' href='assets/libs/sweetalert2/sweetalert2.min.css'>";
@@ -62,7 +60,7 @@
                 }, 1000);
             </script>';
         }
-    }*/
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
